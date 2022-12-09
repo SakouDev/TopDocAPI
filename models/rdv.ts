@@ -8,11 +8,11 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     }
 
     return sequelize.define('Rdv', {
-        rendez_vous_date: {
+        rdv_date: {
             type: dataTypes.DATE,
             primaryKey: true,
         },
-        rendez_vous_duration: {
+        rdv_duration: {
             type: dataTypes.INTEGER,
             allowNull: false
         },

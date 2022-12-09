@@ -10,6 +10,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     return sequelize.define('Holiday', {
         holiday_id: {
             type: dataTypes.INTEGER,
+            autoIncrement:true,
             primaryKey: true
         },
         start_date: {

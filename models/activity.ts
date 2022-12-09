@@ -11,6 +11,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     return sequelize.define('Activity', {
         activity_id: {
             type: dataTypes.INTEGER,
+            autoIncrement:true,
             primaryKey: true,
         },
         name: {
@@ -29,7 +30,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Token') }
             }
         },
-        nom_cabinet: {
+        name_cabinet: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
