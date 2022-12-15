@@ -2,8 +2,8 @@ export interface PlanningType {
     
     name : string 
 
-    start_date : Date
+    startDate : Date
     
-    validity_duration : number
+    validityDuration : number
 
 }

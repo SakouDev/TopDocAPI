@@ -1,6 +1,6 @@
 export interface LocationType{
     
-    zip_code : string;
+    zipCode : string;
 
     city : string;
 

@@ -21,6 +21,22 @@ import { RdvType } from "../types/rdv"
 let rdv = require('../database/mocks/mock-rdv')
 const RdvModel = require('../models/rdv')
 
+import { LocationType } from "../types/location"
+let locations = require('../database/mocks/mock-location')
+const LocationModel = require('../models/location')
+
+import { PlanningType } from "../types/planning"
+let plannings = require('../database/mocks/mock-planning')
+const PlanningModel = require('../models/planning')
+
+// import { BannedType } from "../types/banned"
+// let banneds = require('../database/mocks/mock-banned')
+// const BannedModel = require('../models/banned')
+
+// import { HoursType } from "../types/hours"
+// let hourss = require('../database/mocks/mock-hours')
+// const HoursModel = require('../models/hours')
+
 const User_ActivityModel = require('../models/user_activity')
 const Activity_HolidayModel = require('../models/activity_holiday')
 const User_RdvModel = require('../models/user_rdv')
@@ -39,6 +55,8 @@ const User_Activity = User_ActivityModel(sequelize, DataTypes)
 const Holiday = HolidayModel(sequelize, DataTypes)
 const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
 const Rdv = RdvModel(sequelize, DataTypes)
+const Location = LocationModel(sequelize, DataTypes) 
+const Planning = PlanningModel(sequelize, DataTypes) 
 const User_Rdv = User_RdvModel(sequelize, DataTypes)
 
 // User.hasOne(Candidate, { foreignKey: 'user_id' })
@@ -99,6 +117,22 @@ const initDb = () => {
             Rdv.create({
                 rdv_date : rdv.rdv_date,
                 rdv_duration : rdv.rdv_duration
+            })
+        })
+
+        locations.map((location: LocationType, index:number) => {
+            Location.create({
+                zipCode: location.zipCode,
+                city: location.city,
+                address: location.address
+            })
+        })
+
+        plannings.map((planning: PlanningType, index:number) => {
+            Planning.create({
+                name: planning.name,
+                startDate: planning.startDate,
+                validityDuration: planning.validityDuration
             })
         })
 

@@ -20,7 +20,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Availability') }
             }
         },
-        start_date: {
+        startDate: {
             type: dataTypes.DATE,
             allowNull: false,
             validate: {
@@ -28,7 +28,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Availability') }
             }
         },
-        validity_duration: {
+        validityDuration: {
             type: dataTypes.INTEGER,
             allowNull: false,
             validate: {

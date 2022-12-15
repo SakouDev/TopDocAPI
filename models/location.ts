@@ -17,24 +17,24 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Availability') },
-                notEmpty: { msg: concatRequiredMessage('Availability') }
+                notNull: { msg: concatRequiredMessage('address') },
+                notEmpty: { msg: concatRequiredMessage('address') }
             }
         },
         zipCode: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Availability') },
-                notEmpty: { msg: concatRequiredMessage('Availability') }
+                notNull: { msg: concatRequiredMessage('zipCode') },
+                notEmpty: { msg: concatRequiredMessage('zipCode') }
             }
         },
         city: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Availability') },
-                notEmpty: { msg: concatRequiredMessage('Availability') }
+                notNull: { msg: concatRequiredMessage('city') },
+                notEmpty: { msg: concatRequiredMessage('city') }
             }
         }
     },
