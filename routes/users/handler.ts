@@ -2,115 +2,62 @@ import { Request, Response } from "express";
 import { ApiException } from "../../types/exception";
 import { UserType } from "../../types/user";
 import { ValidationError } from "sequelize";
+import { UserService } from "../../services/user.service";
+import { UserRepository } from "../../repository/user.repository";
 const bcrypt = require("bcrypt");
 
-const { User } = require("../../database/connect");
 
-const { DTO } = require("../../services/DTO/DTO")
+const userService = new UserService(new UserRepository)
 
-const getAllUsers = (req: Request, res: Response) => {
-    User.findAll({
-        order: ['user_id'],
-        attributes: ['user_id', 'mail', 'city', 'zip_code', 'address', 'phone_number', 'is_active', 'is_pending', 'is_to_be_completed', 'role', 'createdAt', 'updatedAt']
-    })
-        .then((users: UserType) => {
-            res.status(200).json((users));
-        })
-        .catch((error: ApiException) => {
-            res.status(500).json(error);
-        });
+
+const getAllUsers = async (req: Request, res: Response) => {
+    try {
+        const result = await userService.UserFindAll()
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 }
 
-const getUserById = (req: Request, res: Response) => {
-    User.findOne({
-        where: { user_id: req.params.id },
-        attributes: ['user_id', 'mail', 'city', 'zip_code', 'address', 'phone_number', 'is_active', 'is_pending', 'is_to_be_completed', 'role', 'createdAt', 'updatedAt']
-    })
-        .then((user: UserType) => {
-            if (user === null) {
-                const message = "Requested user does not exist.";
-                return res.status(404).json({ message });
-            }
-
-            res.json(user);
-        })
-        .catch((error: ApiException) => {
-            res.status(500).json(error);
-        });
+const getUserById = async (req: Request, res: Response) => {
+    try {
+        const result = await userService.UserFindById(parseInt(req.params.id))
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 };
 
 const createUser = async (req: Request, res: Response) => {
-    if (!req.body.password)
-        return res.status(400).json({
-            passwordRequired: true,
-            message: "Password is required.",
-        });
-
-    let hashedPassword = await bcrypt.hash(req.body.password, 10);
-    User.create({ ...req.body, password: hashedPassword })
-        .then((user: UserType) => {
-            res.json(user);
-        })
-        .catch((error: ApiException) => {
-            if (error instanceof ValidationError) {
-                return res
-                    .status(400)
-                    .json({ message: error.message, data: error });
-            }
-            res.status(500).json(error);
-        });
-};
-const updateUser = async (req: Request, res: Response) => {
-    const id = req.params.id;
-
-    if (req.body.password) {
-        let hashedPassword = await bcrypt.hash(req.body.password, 10);
-        req.body = { ...req.body, password: hashedPassword }
+    try {
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        const result = await userService.UserCreate(req.body)
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json(error);
     }
-
-    User.update(req.body, { where: { user_id: id } }
-    )
-        .then(() => {
-            return User.findByPk(id).then((user: UserType) => {
-                if (user === null) {
-                    const message = "Requested user does not exist.";
-                    return res.status(404).json({ message });
-                }
-                const message = `User ${user.user_id} successfully updated`;
-                res.json({ message, data: user });
-            });
-        })
-        .catch((error: ApiException) => {
-            if (error instanceof ValidationError) {
-                return res
-                    .status(400)
-                    .json({ message: error.message, data: error });
-            }
-            const message = `Could not update the user.`;
-            res.status(500).json({ message, data: error });
-        });
 };
 
-const deleteUser = (req: Request, res: Response) => {
-    User.findByPk(req.params.id)
-        .then((user: UserType) => {
-            if (user === null) {
-                const message = "Requested user does not exist.";
-                return res.status(404).json({ message: message });
-            }
+const deleteUser = async (req: Request, res: Response) => {
+    try {
+        const result = await userService.UserDelete(parseInt(req.params.id))
+        return res.status(200).json(result? "Supprimé" : "Non Supprimé");
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
 
-            const deletedUser = user;
-            return User.destroy({
-                where: { user_id: user.user_id },
-            }).then(() => {
-                const message = `User ${deletedUser.user_id} successfully deleted.`;
-                res.json({ message, data: deletedUser });
-            });
-        })
-        .catch((error: ApiException) => {
-            const message = `Could not delete user.`;
-            res.status(500).json({ message, data: error });
-        });
+const updateUser = async (req: Request, res: Response) => {
+        try {
+            if (req.body.password) {
+                let hashedPassword = await bcrypt.hash(req.body.password, 10);
+                req.body = { ...req.body, password: hashedPassword }
+            }
+            const result = await userService.UserUpdate(req.body, parseInt(req.params.id))
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
 };
 
 export const handlerUser = {

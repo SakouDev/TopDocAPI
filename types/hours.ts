@@ -2,6 +2,8 @@ export interface HoursType {
     
     today : string;
 
-    //WORK IN PROGRESS
+    startHour : string;
+
+    duration : number;
 
 }

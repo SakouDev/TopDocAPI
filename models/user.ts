@@ -12,6 +12,14 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
+        firstname: {
+            type: dataTypes.STRING,
+            allowNull: false,
+            validate: {
+                // notNull: { msg: concatRequiredMessage('Prénom') },
+                notEmpty: { msg: concatRequiredMessage('Prénom') }
+            }
+        },
         lastname: {
             type: dataTypes.STRING,
             allowNull: false,
@@ -20,12 +28,12 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Nom') }
             }
         },
-        firstname: {
+        password: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
-                notEmpty: { msg: concatRequiredMessage('Prénom') }
+                notEmpty: { msg: concatRequiredMessage('Mot de passe') }
             }
         },
         birthdate: {
@@ -44,8 +52,8 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Prénom') }
             }
         },
-        telephone: {
-            type: dataTypes.INTEGER,
+        phone: {
+            type: dataTypes.STRING,
             allowNull: true,
             validate: {
                 is: /^$|^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/g

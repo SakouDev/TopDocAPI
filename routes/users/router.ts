@@ -58,7 +58,7 @@ userRouter.get('/:id'
  *         in: body
  *         required: true
  *         type: object
- *         default: { "mail": "email@email.fr","password":"string","is_active": "true","is_pending": "false","zip_code": "string", "city" : "string", "address" : "string", "phone_number" : "string", "role": "string" }
+ *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
  *          description: Create a new user.
@@ -83,7 +83,7 @@ userRouter.post('/', handlerUser.createUser)
  *         in: body
  *         required: true
  *         type: object
- *         default: { "mail": "email@email.fr","password":"string","is_active": "false", "is_pending": "true", "zip_code": "string", "city" : "string", "phone_number" : "string", "role" : "string" }
+ *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
  *          description: Update user of given id.

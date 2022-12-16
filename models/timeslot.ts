@@ -7,7 +7,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     }
 
     return sequelize.define('Time_slot', {
-        time_slot_id: {
+        id: {
             type: dataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,

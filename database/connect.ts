@@ -29,13 +29,13 @@ import { PlanningType } from "../types/planning"
 let plannings = require('../database/mocks/mock-planning')
 const PlanningModel = require('../models/planning')
 
-// import { BannedType } from "../types/banned"
-// let banneds = require('../database/mocks/mock-banned')
-// const BannedModel = require('../models/banned')
+import { BannedType } from "../types/banned"
+let banneds = require('../database/mocks/mock-banned')
+const BannedModel = require('../models/banned')
 
-// import { HoursType } from "../types/hours"
-// let hourss = require('../database/mocks/mock-hours')
-// const HoursModel = require('../models/hours')
+import { HoursType } from "../types/hours"
+let hours = require('../database/mocks/mock-hours')
+const HoursModel = require('../models/hours')
 
 const User_ActivityModel = require('../models/user_activity')
 const Activity_HolidayModel = require('../models/activity_holiday')
@@ -47,117 +47,133 @@ sequelize.authenticate()
     .then(() => console.log('Successfully connected to database.'))
     .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
     )
+    
+    export const User = UserModel(sequelize, DataTypes)
+    export const Token = TokenModel(sequelize, DataTypes)
+    export const Activity = ActivityModel(sequelize, DataTypes)
+    export const User_Activity = User_ActivityModel(sequelize, DataTypes)
+    export const Holiday = HolidayModel(sequelize, DataTypes)
+    export const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
+    export const Rdv = RdvModel(sequelize, DataTypes)
+    export const Location = LocationModel(sequelize, DataTypes) 
+    export const Planning = PlanningModel(sequelize, DataTypes) 
+    export const Banned = BannedModel(sequelize, DataTypes) 
+    export const Hours = HoursModel(sequelize, DataTypes) 
+    export const User_Rdv = User_RdvModel(sequelize, DataTypes)
 
-const User = UserModel(sequelize, DataTypes)
-const Token = TokenModel(sequelize, DataTypes)
-const Activity = ActivityModel(sequelize, DataTypes)
-const User_Activity = User_ActivityModel(sequelize, DataTypes)
-const Holiday = HolidayModel(sequelize, DataTypes)
-const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
-const Rdv = RdvModel(sequelize, DataTypes)
-const Location = LocationModel(sequelize, DataTypes) 
-const Planning = PlanningModel(sequelize, DataTypes) 
-const User_Rdv = User_RdvModel(sequelize, DataTypes)
+    // User.hasOne(Candidate, { foreignKey: 'user_id' })
+    // Candidate.belongsTo(User, { foreignKey: 'user_id' })
 
-// User.hasOne(Candidate, { foreignKey: 'user_id' })
-// Candidate.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Company, { foreignKey: 'user_id' })
+    // Company.belongsTo(User, { foreignKey: 'user_id' })
 
-// User.hasOne(Company, { foreignKey: 'user_id' })
-// Company.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Admin, { foreignKey: 'user_id' })
+    // Admin.belongsTo(User, { foreignKey: 'user_id' })
 
-// User.hasOne(Admin, { foreignKey: 'user_id' })
-// Admin.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Token, { foreignKey: 'user_id' })
+    // Token.belongsTo(User, { foreignKey: 'user_id' })
 
-// User.hasOne(Token, { foreignKey: 'user_id' })
-// Token.belongsTo(User, { foreignKey: 'user_id' })
+    User.belongsToMany(Activity, { through: User_Activity})
+    Activity.belongsToMany(User, { through: User_Activity})
 
-User.belongsToMany(Activity, { through: User_Activity})
-Activity.belongsToMany(User, { through: User_Activity})
+    Holiday.belongsToMany(Activity, { through: Activity_Holiday})
+    Activity.belongsToMany(Holiday, { through: Activity_Holiday})
 
-Holiday.belongsToMany(Activity, { through: Activity_Holiday})
-Activity.belongsToMany(Holiday, { through: Activity_Holiday})
+    User.belongsToMany(Rdv, { through: User_Rdv})
+    Rdv.belongsToMany(User, { through: User_Rdv})
 
-User.belongsToMany(Rdv, { through: User_Rdv})
-Rdv.belongsToMany(User, { through: User_Rdv})
+    const initDb = () => {
 
-const initDb = () => {
-
-    return sequelize.sync({ force: true }).then(() => {
+        return sequelize.sync({ force: true }).then(() => {
 
 
-        tokens.map((token: TokenType) => {
-            Token.create({
-                user_id: token.user_id,
-                refreshToken: token.refreshToken
-            }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
+            tokens.map((token: TokenType) => {
+                Token.create({
+                    user_id: token.user_id,
+                    refreshToken: token.refreshToken
+                }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
+            })
+
+            holiday.map((holiday: HolidayType, index : number) => {
+                Holiday.create({
+                    start_date : holiday.start_date,
+                    end_date : holiday.end_date
+                })
+            })
+
+            activities.map((activity: ActivityType, index : number) => {
+                Activity.create({
+                    name : activity.name,
+                    description : activity.description,
+                    name_cabinet : activity.name_cabinet,
+                    isActive : activity.isActive
+                })
+                .then(async (req: any) => {
+                    console.log(req.toJSON())
+                    const holidayRow = await Holiday.findByPk(index + 1);
+                    await req.addHoliday(holidayRow, { through: Activity_Holiday })
+                })
+            })
+
+            rdv.map((rdv: RdvType, index : number) => {
+                Rdv.create({
+                    rdv_date : rdv.rdv_date,
+                    rdv_duration : rdv.rdv_duration
+                })
+            })
+
+            locations.map((location: LocationType, index:number) => {
+                Location.create({
+                    zipCode: location.zipCode,
+                    city: location.city,
+                    address: location.address
+                })
+            })
+
+            plannings.map((planning: PlanningType, index:number) => {
+                Planning.create({
+                    name: planning.name,
+                    startDate: planning.startDate,
+                    validityDuration: planning.validityDuration
+                })
+            })
+            
+            banneds.map((banned: BannedType, index:number) => {
+                Banned.create({
+                    reason : banned.reason
+                })
+            })
+            
+            hours.map((hours: HoursType, index:number) => {
+                Hours.create({
+                    today : hours.today,
+                    startHour : hours.startHour,
+                    duration : hours.duration
+                })
+            })
+
+            users.map((user: UserType, index : number) => {
+                User.create({
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    birthdate : user.birthdate,
+                    mail: user.mail,
+                    genre: user.genre,
+                    password: user.password,
+                    phone: user.phone,
+                    role: user.role,
+                    token: user.token
+                })
+                .then(async (req: any) => {
+                    console.log(req.toJSON())
+                    const activityRow = await Activity.findByPk(index + 1);
+                    await req.addActivity(activityRow, { through: User_Activity })
+                })
+            })
+
+            console.log('Database successfully initialized.')
         })
-
-        holiday.map((holiday: HolidayType, index : number) => {
-            Holiday.create({
-                start_date : holiday.start_date,
-                end_date : holiday.end_date
-            })
-        })
-
-        activities.map((activity: ActivityType, index : number) => {
-            Activity.create({
-                name : activity.name,
-                description : activity.description,
-                name_cabinet : activity.name_cabinet,
-                isActive : activity.isActive
-            })
-            .then(async (req: any) => {
-                console.log(req.toJSON())
-                const holidayRow = await Holiday.findByPk(index + 1);
-                await req.addHoliday(holidayRow, { through: Activity_Holiday })
-            })
-        })
-
-        rdv.map((rdv: RdvType, index : number) => {
-            Rdv.create({
-                rdv_date : rdv.rdv_date,
-                rdv_duration : rdv.rdv_duration
-            })
-        })
-
-        locations.map((location: LocationType, index:number) => {
-            Location.create({
-                zipCode: location.zipCode,
-                city: location.city,
-                address: location.address
-            })
-        })
-
-        plannings.map((planning: PlanningType, index:number) => {
-            Planning.create({
-                name: planning.name,
-                startDate: planning.startDate,
-                validityDuration: planning.validityDuration
-            })
-        })
-
-        users.map((user: UserType, index : number) => {
-            User.create({
-                firstname: user.firstname,
-                lastname: user.lastname,
-                birthdate : user.birthdate,
-                mail: user.mail,
-                genre: user.genre,
-                password: user.password,
-                phone: user.phone,
-                role: user.role,
-                token: user.token
-            })
-            .then(async (req: any) => {
-                console.log(req.toJSON())
-                const activityRow = await Activity.findByPk(index + 1);
-                await req.addActivity(activityRow, { through: User_Activity })
-            })
-        })
-
-        console.log('Database successfully initialized.')
-    })
-}
+    }
 
 module.exports = {
     initDb,
