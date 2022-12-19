@@ -5,6 +5,7 @@ const users = [
         birthdate : "27/04/1999",
         mail : "Vigneronlucweb@gmail.com",
         password : "12344",
+        genre : "Homme",
         phone : "0658738863",
         role : "Admin",
         token : "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
@@ -15,6 +16,7 @@ const users = [
         birthdate : "27/04/1999",
         mail : "remyctrz@gmail.com",
         password : "12344",
+        genre : "Homme",
         phone : "0658738863",
         role : "Admin",
         token : "ALED PC MONTAGE ALED"

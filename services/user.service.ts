@@ -28,13 +28,13 @@ export class UserService {
         })
     }
 
-    async UserDelete(id : number): Promise<boolean>{
-        return this.userRepository.delete(id).then((data : boolean) => {
+    async UserDelete(id : number): Promise<boolean | number>{
+        return this.userRepository.delete(id).then((data : boolean | number) => {
             return data
         })
     }
 
-    async UserUpdate(user : UserType, id : number): Promise<boolean>{
+    async UserUpdate(user : UserType, id : number): Promise<boolean | number>{
         return this.userRepository.update(user, id).then((data) => {
             return data
         })

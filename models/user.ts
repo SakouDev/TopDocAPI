@@ -1,19 +1,41 @@
-import { DataTypes, Sequelize } from "sequelize"
+import { DataTypes, Model, Sequelize } from "sequelize"
+import sequelize from '../database/sequelize'
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export class User extends Model{
+    
+    id! : number
 
+    firstname! : string
+
+    lastname! : string
+
+    birthdate! : string
+
+    mail! : string
+
+    genre! : string
+
+    password! : string
+
+    phone! : number
+
+    role! : string
+
+    token! : string
+
+}
     const concatRequiredMessage = (data: string) => {
         return `Le champ ${data} est requis`
     }
 
-    return sequelize.define('User', {
+    User.init({
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         firstname: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
@@ -21,7 +43,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         lastname: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Nom') },
@@ -29,7 +51,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         password: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
@@ -37,7 +59,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         birthdate: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Date de naissance') },
@@ -45,7 +67,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         mail: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
@@ -53,14 +75,14 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         phone: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 is: /^$|^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/g
             },
         },
         role: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
@@ -68,7 +90,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         token: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 // notNull: { msg: concatRequiredMessage('Prénom') },
@@ -77,6 +99,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         },
     },
         {
+            sequelize,
             timestamps: false
         })
-}
+

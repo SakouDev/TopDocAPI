@@ -1,9 +1,8 @@
 import { DataTypes } from "sequelize"
-const { Sequelize } = require('sequelize')
 
 import { UserType } from "../types/user"
 let users = require('../database/mocks/mock-user')
-const UserModel = require('../models/user')
+import { User } from '../models/user'
 
 import { TokenType } from "../types/token"
 let tokens = require('../database/mocks/mock-token')
@@ -48,7 +47,6 @@ sequelize.authenticate()
     .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
     )
     
-    export const User = UserModel(sequelize, DataTypes)
     export const Token = TokenModel(sequelize, DataTypes)
     export const Activity = ActivityModel(sequelize, DataTypes)
     export const User_Activity = User_ActivityModel(sequelize, DataTypes)

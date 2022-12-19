@@ -22,6 +22,9 @@ const getAllUsers = async (req: Request, res: Response) => {
 const getUserById = async (req: Request, res: Response) => {
     try {
         const result = await userService.UserFindById(parseInt(req.params.id))
+        if(result === null){
+            return res.status(404).send()
+        }
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json(error);
