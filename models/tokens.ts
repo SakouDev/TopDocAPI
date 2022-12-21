@@ -1,24 +1,33 @@
-import { DataTypes, Sequelize, STRING } from "sequelize"
+import { DataTypes, Model, Sequelize } from "sequelize"
+import sequelize from '../database/sequelize'
 
+export class Tokens extends Model{
+    
+    user_id! : number
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+    refreshToken! : string
 
+}
     const concatRequiredMessage = (data: string) => {
-        return `${data} is requis`
+        return `Le champ ${data} est requis`
     }
 
-    return sequelize.define('Token', {
+    Tokens.init({
         user_id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
         },
         refreshToken: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Token') },
-                notEmpty: { msg: concatRequiredMessage('Token') }
+                notNull: { msg: concatRequiredMessage('Tokens') },
+                notEmpty: { msg: concatRequiredMessage('Tokens') }
             }
         },
-    })
-}
+    },
+        {
+            sequelize,
+            timestamps: false
+        })
+

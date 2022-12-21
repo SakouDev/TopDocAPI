@@ -31,5 +31,4 @@ export class UserRepository implements IRepository<UserDTO> {
             return data[0]
         })     
     }
-
 }

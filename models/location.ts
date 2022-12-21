@@ -1,20 +1,26 @@
+import { DataTypes, Model } from "sequelize"
+import sequelize from '../database/sequelize'
 
-import { DataTypes, Sequelize } from "sequelize"
+export class Location extends Model{
+    
+    zipCode! : string;
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+    city! : string;
 
+    address! : string;
+    
+}
     const concatRequiredMessage = (data: string) => {
-        return `${data} is required`
+        return `Le champ ${data} est requis`
     }
-
-    return sequelize.define('Location', {
+    Location.init({
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         address: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('address') },
@@ -22,7 +28,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         zipCode: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('zipCode') },
@@ -30,7 +36,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         city: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('city') },
@@ -39,6 +45,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         }
     },
         {
+            sequelize,
             timestamps: false
         })
-}
+

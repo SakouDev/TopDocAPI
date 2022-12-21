@@ -8,7 +8,7 @@ const users = [
         genre : "Homme",
         phone : "0658738863",
         role : "Admin",
-        token : "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
+        tokens : "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
     },
     {
         firstname : "Remy",
@@ -19,7 +19,7 @@ const users = [
         genre : "Homme",
         phone : "0658738863",
         role : "Admin",
-        token : "ALED PC MONTAGE ALED"
+        tokens : "ALED PC MONTAGE ALED"
     }
 ];
 

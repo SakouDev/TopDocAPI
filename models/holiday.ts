@@ -1,20 +1,26 @@
+import { DataTypes, Model, Sequelize } from "sequelize"
+import sequelize from '../database/sequelize'
 
-import { DataTypes, Sequelize } from "sequelize"
+export class Holiday extends Model{
+    
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+    start_date! : Date
 
+    end_date! : Date
+
+}
     const concatRequiredMessage = (data: string) => {
         return `Le champ ${data} est requis`
     }
 
-    return sequelize.define('Holiday', {
+    Holiday.init({
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement:true,
             primaryKey: true
         },
         start_date: {
-            type: dataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('Nom') },
@@ -22,7 +28,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         end_date: {
-            type: dataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('Nom') },
@@ -31,6 +37,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         },
     },
         {
+            sequelize,
             timestamps: false
         })
-}
+

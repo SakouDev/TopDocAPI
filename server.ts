@@ -18,14 +18,11 @@ import { Response, Request } from 'express'
 app.use(express.json())
 app.use('/api', router)
 
-
-
-
 import { userRouter } from './routes/users/router'
-
-
-
-
+import { tokenRouter } from './routes/token/router'
+import { holidayRouter } from './routes/holiday/router'
+import { rdvRouter } from './routes/rdv/router'
+import { locationRouter } from './routes/location/router'
 
 // To reset database, comment otherwise.
 sequelize.initDb()
@@ -76,6 +73,11 @@ router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 // import { authorization } from './middleware/authorizations'
 
 router.use('/users', userRouter)
+router.use('/tokens', tokenRouter)
+router.use('/holiday', holidayRouter)
+router.use('/rdv', rdvRouter)
+router.use('/location', locationRouter)
+
 // router.use('/admins', authenticateToken, authorization, adminRouter)
 // router.use('/auth', authentificationRouter)
 

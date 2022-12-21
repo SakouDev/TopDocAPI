@@ -1,28 +1,22 @@
 import { DataTypes } from "sequelize"
 
-import { UserType } from "../types/user"
 let users = require('../database/mocks/mock-user')
-import { User } from '../models/user'
+let tokens = require('../database/mocks/mock-tokens')
+let holiday = require('../database/mocks/mock-holiday')
+let rdv = require('../database/mocks/mock-rdv')
+let locations = require('../database/mocks/mock-location')
 
-import { TokenType } from "../types/token"
-let tokens = require('../database/mocks/mock-token')
-const TokenModel = require('../models/tokens')
+import { User } from '../models/user'
+import { Tokens } from '../models/tokens'
+import { Holiday } from '../models/holiday'
+import { Rdv } from '../models/rdv'
+import { Location } from '../models/location'
+
 
 import { ActivityType } from "../types/activity"
 let activities = require('../database/mocks/mock-activity')
 const ActivityModel = require('../models/activity')
 
-import { HolidayType } from "../types/holiday"
-let holiday = require('../database/mocks/mock-holiday')
-const HolidayModel = require('../models/holiday')
-
-import { RdvType } from "../types/rdv"
-let rdv = require('../database/mocks/mock-rdv')
-const RdvModel = require('../models/rdv')
-
-import { LocationType } from "../types/location"
-let locations = require('../database/mocks/mock-location')
-const LocationModel = require('../models/location')
 
 import { PlanningType } from "../types/planning"
 let plannings = require('../database/mocks/mock-planning')
@@ -47,13 +41,9 @@ sequelize.authenticate()
     .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
     )
     
-    export const Token = TokenModel(sequelize, DataTypes)
     export const Activity = ActivityModel(sequelize, DataTypes)
     export const User_Activity = User_ActivityModel(sequelize, DataTypes)
-    export const Holiday = HolidayModel(sequelize, DataTypes)
     export const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
-    export const Rdv = RdvModel(sequelize, DataTypes)
-    export const Location = LocationModel(sequelize, DataTypes) 
     export const Planning = PlanningModel(sequelize, DataTypes) 
     export const Banned = BannedModel(sequelize, DataTypes) 
     export const Hours = HoursModel(sequelize, DataTypes) 
@@ -68,8 +58,8 @@ sequelize.authenticate()
     // User.hasOne(Admin, { foreignKey: 'user_id' })
     // Admin.belongsTo(User, { foreignKey: 'user_id' })
 
-    // User.hasOne(Token, { foreignKey: 'user_id' })
-    // Token.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Tokens, { foreignKey: 'user_id' })
+    // Tokens.belongsTo(User, { foreignKey: 'user_id' })
 
     User.belongsToMany(Activity, { through: User_Activity})
     Activity.belongsToMany(User, { through: User_Activity})
@@ -85,14 +75,14 @@ sequelize.authenticate()
         return sequelize.sync({ force: true }).then(() => {
 
 
-            tokens.map((token: TokenType) => {
-                Token.create({
-                    user_id: token.user_id,
-                    refreshToken: token.refreshToken
+            tokens.map((tokens: Tokens) => {
+                Tokens.create({
+                    user_id: tokens.user_id,
+                    refreshToken: tokens.refreshToken
                 }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
             })
 
-            holiday.map((holiday: HolidayType, index : number) => {
+            holiday.map((holiday: Holiday, index : number) => {
                 Holiday.create({
                     start_date : holiday.start_date,
                     end_date : holiday.end_date
@@ -113,14 +103,14 @@ sequelize.authenticate()
                 })
             })
 
-            rdv.map((rdv: RdvType, index : number) => {
+            rdv.map((rdv: Rdv, index : number) => {
                 Rdv.create({
                     rdv_date : rdv.rdv_date,
                     rdv_duration : rdv.rdv_duration
                 })
             })
 
-            locations.map((location: LocationType, index:number) => {
+            locations.map((location: Location, index:number) => {
                 Location.create({
                     zipCode: location.zipCode,
                     city: location.city,
@@ -150,7 +140,7 @@ sequelize.authenticate()
                 })
             })
 
-            users.map((user: UserType, index : number) => {
+            users.map((user: User, index : number) => {
                 User.create({
                     firstname: user.firstname,
                     lastname: user.lastname,
@@ -160,7 +150,7 @@ sequelize.authenticate()
                     password: user.password,
                     phone: user.phone,
                     role: user.role,
-                    token: user.token
+                    tokens: user.tokens
                 })
                 .then(async (req: any) => {
                     console.log(req.toJSON())
@@ -176,7 +166,7 @@ sequelize.authenticate()
 module.exports = {
     initDb,
     User,
-    Token,
+    Tokens,
     Activity,
     Holiday,
     Rdv,

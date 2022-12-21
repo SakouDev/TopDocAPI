@@ -5,8 +5,8 @@ import jwt_decode from "jwt-decode";
 export function authorization(req : Request, res : Response, next : NextFunction) {
     const id = req.params.id && req.params.id
     const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    const decoded : any = token && jwt_decode(token)
+    const tokens = authHeader && authHeader.split(' ')[1]
+    const decoded : any = tokens && jwt_decode(tokens)
 
     if (decoded.id != id) {
         if (decoded.role != 'admin') return res.status(403).json('Vous ne possédez pas les droits.')

@@ -1,6 +1,6 @@
 import { UserDTO } from "../DTO/user.dto";
 import { IRepository } from "../repository/core/repository.interface";
-import { UserType } from "../types/user";
+import { User } from "../models/user"
 
 export class UserService {
 
@@ -22,7 +22,7 @@ export class UserService {
         })
     }
     
-    async UserCreate(user : UserType): Promise<UserDTO | null>{
+    async UserCreate(user : User): Promise<UserDTO | null>{
         return this.userRepository.create(user).then((data) => {
             return data
         })
@@ -34,7 +34,7 @@ export class UserService {
         })
     }
 
-    async UserUpdate(user : UserType, id : number): Promise<boolean | number>{
+    async UserUpdate(user : User, id : number): Promise<boolean | number>{
         return this.userRepository.update(user, id).then((data) => {
             return data
         })

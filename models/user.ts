@@ -21,7 +21,7 @@ export class User extends Model{
 
     role! : string
 
-    token! : string
+    tokens! : string
 
 }
     const concatRequiredMessage = (data: string) => {
@@ -89,7 +89,7 @@ export class User extends Model{
                 notEmpty: { msg: concatRequiredMessage('Prénom') }
             }
         },
-        token: {
+        tokens: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {

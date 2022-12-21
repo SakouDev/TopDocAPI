@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
-import { UserService } from "../../services/user.service";
-import { UserRepository } from "../../repository/user.repository";
+import { HolidayService } from "../../services/holiday.service";
+import { HolidayRepository } from "../../repository/holiday.repository";
 const bcrypt = require("bcrypt");
 
 
-const userService = new UserService(new UserRepository)
+const holidayService = new HolidayService(new HolidayRepository)
 
 
-const getAllUsers = async (req: Request, res: Response) => {
+const getAllHoliday = async (req: Request, res: Response) => {
     try {
-        const result = await userService.UserFindAll()
+        const result = await holidayService.HolidayFindAll()
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json(error);
     }
 }
 
-const getUserById = async (req: Request, res: Response) => {
+const getHolidayById = async (req: Request, res: Response) => {
     try {
-        const result = await userService.UserFindById(parseInt(req.params.id))
+        const result = await holidayService.HolidayFindById(parseInt(req.params.id))
         if(result === null){
             return res.status(404).send()
         }
@@ -28,42 +28,42 @@ const getUserById = async (req: Request, res: Response) => {
     }
 };
 
-const createUser = async (req: Request, res: Response) => {
+const createHoliday = async (req: Request, res: Response) => {
     try {
         req.body.password = await bcrypt.hash(req.body.password, 10);
-        const result = await userService.UserCreate(req.body)
+        const result = await holidayService.HolidayCreate(req.body)
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json(error);
     }
 };
 
-const deleteUser = async (req: Request, res: Response) => {
+const deleteHoliday = async (req: Request, res: Response) => {
     try {
-        const result = await userService.UserDelete(parseInt(req.params.id))
+        const result = await holidayService.HolidayDelete(parseInt(req.params.id))
         return res.status(200).json(result? "Supprimé" : "Non Supprimé");
     } catch (error) {
         return res.status(500).json(error);
     }
 };
 
-const updateUser = async (req: Request, res: Response) => {
+const updateHoliday = async (req: Request, res: Response) => {
         try {
             if (req.body.password) {
                 let hashedPassword = await bcrypt.hash(req.body.password, 10);
                 req.body = { ...req.body, password: hashedPassword }
             }
-            const result = await userService.UserUpdate(req.body, parseInt(req.params.id))
+            const result = await holidayService.HolidayUpdate(req.body, parseInt(req.params.id))
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);
         }
 };
 
-export const handlerUser = {
-    getAllUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser
+export const handlerHoliday = {
+    getAllHoliday,
+    getHolidayById,
+    createHoliday,
+    updateHoliday,
+    deleteHoliday
 }

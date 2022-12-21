@@ -1,4 +1,4 @@
-export interface HolidayType {
+export interface HolidayDTO {
 
     start_date : Date
 

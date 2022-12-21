@@ -1,20 +1,30 @@
+import { DataTypes, Model, Sequelize } from "sequelize"
+import sequelize from '../database/sequelize'
 
-import { DataTypes, Sequelize } from "sequelize"
+export class Rdv extends Model{
+    
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+    rdv_date! : Date
 
+    rdv_duration! : number
+
+}
     const concatRequiredMessage = (data: string) => {
         return `Le champ ${data} est requis`
     }
 
-    return sequelize.define('Rdv', {
+    Rdv.init({
         rdv_date: {
-            type: dataTypes.DATE,
+            type: DataTypes.DATE,
             primaryKey: true,
         },
         rdv_duration: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
-    })
-}
+    },
+        {
+            sequelize,
+            timestamps: false
+        })
+

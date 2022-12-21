@@ -18,24 +18,24 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Token') },
-                notEmpty: { msg: concatRequiredMessage('Token') }
+                notNull: { msg: concatRequiredMessage('Tokens') },
+                notEmpty: { msg: concatRequiredMessage('Tokens') }
             }
         },
         description: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Token') },
-                notEmpty: { msg: concatRequiredMessage('Token') }
+                notNull: { msg: concatRequiredMessage('Tokens') },
+                notEmpty: { msg: concatRequiredMessage('Tokens') }
             }
         },
         name_cabinet: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: { msg: concatRequiredMessage('Token') },
-                notEmpty: { msg: concatRequiredMessage('Token') }
+                notNull: { msg: concatRequiredMessage('Tokens') },
+                notEmpty: { msg: concatRequiredMessage('Tokens') }
             }
         },
         isActive: {
