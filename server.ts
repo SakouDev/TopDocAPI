@@ -8,22 +8,22 @@ const router = express.Router()
 
 app.use(cors())
 
-import { ApiException } from './types/exception'
+// import { ApiException } from './types/exception'
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
-const sequelize = require('./database/connect')
+const sequelize = require('./src/database/connect')
 
 import { Response, Request } from 'express'
 
 app.use(express.json())
 app.use('/api', router)
 
-import { userRouter } from './routes/users/router'
-import { tokenRouter } from './routes/token/router'
-import { holidayRouter } from './routes/holiday/router'
-import { rdvRouter } from './routes/rdv/router'
-import { locationRouter } from './routes/location/router'
-import { planningRouter } from './routes/planning/router'
+import { userRouter } from './src/routes/users/router'
+import { tokenRouter } from './src/routes/token/router'
+import { holidayRouter } from './src/routes/holiday/router'
+import { rdvRouter } from './src/routes/rdv/router'
+import { locationRouter } from './src/routes/location/router'
+import { planningRouter } from './src/routes/planning/router'
 
 // To reset database, comment otherwise.
 sequelize.initDb()
@@ -64,7 +64,7 @@ const swaggerOptions = {
             }
         ],
     },
-    apis: [`./routes/*/router.ts`]
+    apis: [`./src/routes/*/router.ts`]
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
