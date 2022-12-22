@@ -5,22 +5,20 @@ let tokens = require('../database/mocks/mock-tokens')
 let holiday = require('../database/mocks/mock-holiday')
 let rdv = require('../database/mocks/mock-rdv')
 let locations = require('../database/mocks/mock-location')
+let plannings = require('../database/mocks/mock-planning')
 
 import { User } from '../models/user'
 import { Tokens } from '../models/tokens'
 import { Holiday } from '../models/holiday'
 import { Rdv } from '../models/rdv'
 import { Location } from '../models/location'
-
+import { Planning } from "../models/planning"
 
 import { ActivityType } from "../types/activity"
 let activities = require('../database/mocks/mock-activity')
 const ActivityModel = require('../models/activity')
 
 
-import { PlanningType } from "../types/planning"
-let plannings = require('../database/mocks/mock-planning')
-const PlanningModel = require('../models/planning')
 
 import { BannedType } from "../types/banned"
 let banneds = require('../database/mocks/mock-banned')
@@ -44,22 +42,21 @@ sequelize.authenticate()
     export const Activity = ActivityModel(sequelize, DataTypes)
     export const User_Activity = User_ActivityModel(sequelize, DataTypes)
     export const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
-    export const Planning = PlanningModel(sequelize, DataTypes) 
     export const Banned = BannedModel(sequelize, DataTypes) 
     export const Hours = HoursModel(sequelize, DataTypes) 
     export const User_Rdv = User_RdvModel(sequelize, DataTypes)
 
-    // User.hasOne(Candidate, { foreignKey: 'user_id' })
-    // Candidate.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Candidate, { foreignKey: 'userId' })
+    // Candidate.belongsTo(User, { foreignKey: 'userId' })
 
-    // User.hasOne(Company, { foreignKey: 'user_id' })
-    // Company.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Company, { foreignKey: 'userId' })
+    // Company.belongsTo(User, { foreignKey: 'userId' })
 
-    // User.hasOne(Admin, { foreignKey: 'user_id' })
-    // Admin.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Admin, { foreignKey: 'userId' })
+    // Admin.belongsTo(User, { foreignKey: 'userId' })
 
-    // User.hasOne(Tokens, { foreignKey: 'user_id' })
-    // Tokens.belongsTo(User, { foreignKey: 'user_id' })
+    // User.hasOne(Tokens, { foreignKey: 'userId' })
+    // Tokens.belongsTo(User, { foreignKey: 'userId' })
 
     User.belongsToMany(Activity, { through: User_Activity})
     Activity.belongsToMany(User, { through: User_Activity})
@@ -77,15 +74,15 @@ sequelize.authenticate()
 
             tokens.map((tokens: Tokens) => {
                 Tokens.create({
-                    user_id: tokens.user_id,
+                    userId: tokens.userId,
                     refreshToken: tokens.refreshToken
                 }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
             })
 
             holiday.map((holiday: Holiday, index : number) => {
                 Holiday.create({
-                    start_date : holiday.start_date,
-                    end_date : holiday.end_date
+                    startDate : holiday.startDate,
+                    endDate : holiday.endDate
                 })
             })
 
@@ -93,7 +90,7 @@ sequelize.authenticate()
                 Activity.create({
                     name : activity.name,
                     description : activity.description,
-                    name_cabinet : activity.name_cabinet,
+                    nameCabinet : activity.nameCabinet,
                     isActive : activity.isActive
                 })
                 .then(async (req: any) => {
@@ -105,8 +102,8 @@ sequelize.authenticate()
 
             rdv.map((rdv: Rdv, index : number) => {
                 Rdv.create({
-                    rdv_date : rdv.rdv_date,
-                    rdv_duration : rdv.rdv_duration
+                    rdvDate : rdv.rdvDate,
+                    rdvDuration : rdv.rdvDuration
                 })
             })
 
@@ -118,7 +115,7 @@ sequelize.authenticate()
                 })
             })
 
-            plannings.map((planning: PlanningType, index:number) => {
+            plannings.map((planning: Planning, index:number) => {
                 Planning.create({
                     name: planning.name,
                     startDate: planning.startDate,

@@ -1,7 +1,7 @@
 const holiday = [
     {
-        start_date : new Date(),
-        end_date : new Date()
+        startDate : new Date(),
+        endDate : new Date()
     }
 ];
 

@@ -1,7 +1,7 @@
 export interface RdvDTO {
 
-    rdv_date : Date
+    rdvDate : Date
 
-    rdv_duration : number
+    rdvDuration : number
 
 }

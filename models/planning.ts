@@ -1,19 +1,27 @@
-import { DataTypes, Sequelize } from "sequelize"
+import { DataTypes, Model, Sequelize } from "sequelize"
+import sequelize from '../database/sequelize'
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export class Planning extends Model{
 
+    name! : string 
+
+    startDate! : Date
+    
+    validityDuration! : number
+    
+}
     const concatRequiredMessage = (data: string) => {
-        return `${data} is required`
+        return `Le champ ${data} est requis`
     }
 
-    return sequelize.define('Planning', {
+    Planning.init({
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         name: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('Availability') },
@@ -21,7 +29,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         startDate: {
-            type: dataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('Availability') },
@@ -29,7 +37,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
             }
         },
         validityDuration: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notNull: { msg: concatRequiredMessage('Availability') },
@@ -38,6 +46,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         }
     },
         {
+            sequelize,
             timestamps: false
         })
-}
+

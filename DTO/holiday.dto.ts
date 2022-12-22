@@ -1,7 +1,7 @@
 export interface HolidayDTO {
 
-    start_date : Date
+    startDate : Date
 
-    end_date : Date
+    endDate : Date
 
 }

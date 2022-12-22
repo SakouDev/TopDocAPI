@@ -30,7 +30,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
                 notEmpty: { msg: concatRequiredMessage('Tokens') }
             }
         },
-        name_cabinet: {
+        nameCabinet: {
             type: dataTypes.STRING,
             allowNull: false,
             validate: {

@@ -3,7 +3,7 @@ import sequelize from '../database/sequelize'
 
 export class Tokens extends Model{
     
-    user_id! : number
+    userId! : number
 
     refreshToken! : string
 
@@ -13,7 +13,7 @@ export class Tokens extends Model{
     }
 
     Tokens.init({
-        user_id: {
+        userId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },

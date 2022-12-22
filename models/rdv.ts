@@ -4,9 +4,9 @@ import sequelize from '../database/sequelize'
 export class Rdv extends Model{
     
 
-    rdv_date! : Date
+    rdvDate! : Date
 
-    rdv_duration! : number
+    rdvDuration! : number
 
 }
     const concatRequiredMessage = (data: string) => {
@@ -14,11 +14,11 @@ export class Rdv extends Model{
     }
 
     Rdv.init({
-        rdv_date: {
+        rdvDate: {
             type: DataTypes.DATE,
             primaryKey: true,
         },
-        rdv_duration: {
+        rdvDuration: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

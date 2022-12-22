@@ -23,6 +23,7 @@ import { tokenRouter } from './routes/token/router'
 import { holidayRouter } from './routes/holiday/router'
 import { rdvRouter } from './routes/rdv/router'
 import { locationRouter } from './routes/location/router'
+import { planningRouter } from './routes/planning/router'
 
 // To reset database, comment otherwise.
 sequelize.initDb()
@@ -77,6 +78,7 @@ router.use('/tokens', tokenRouter)
 router.use('/holiday', holidayRouter)
 router.use('/rdv', rdvRouter)
 router.use('/location', locationRouter)
+router.use('/planning', planningRouter)
 
 // router.use('/admins', authenticateToken, authorization, adminRouter)
 // router.use('/auth', authentificationRouter)

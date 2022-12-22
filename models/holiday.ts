@@ -4,9 +4,9 @@ import sequelize from '../database/sequelize'
 export class Holiday extends Model{
     
 
-    start_date! : Date
+    startDate! : Date
 
-    end_date! : Date
+    endDate! : Date
 
 }
     const concatRequiredMessage = (data: string) => {
@@ -19,7 +19,7 @@ export class Holiday extends Model{
             autoIncrement:true,
             primaryKey: true
         },
-        start_date: {
+        startDate: {
             type: DataTypes.DATE,
             allowNull: false,
             validate: {
@@ -27,7 +27,7 @@ export class Holiday extends Model{
                 notEmpty: { msg: concatRequiredMessage('Nom') }
             }
         },
-        end_date: {
+        endDate: {
             type: DataTypes.DATE,
             allowNull: false,
             validate: {

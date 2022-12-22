@@ -4,7 +4,7 @@ export interface ActivityType {
 
     description : string
 
-    name_cabinet : string
+    nameCabinet : string
 
     isActive : boolean
 
