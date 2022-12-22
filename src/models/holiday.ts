@@ -8,6 +8,7 @@ export class Holiday extends Model {
     endDate!: Date
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -39,4 +40,3 @@ Holiday.init({
         sequelize,
         timestamps: false
     })
-

@@ -10,6 +10,7 @@ export class Timeslot extends Model {
     endHour!: Date
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -49,4 +50,3 @@ Timeslot.init({
         sequelize,
         timestamps: false
     })
-

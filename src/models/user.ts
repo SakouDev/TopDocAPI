@@ -24,6 +24,7 @@ export class User extends Model {
     tokens!: string
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -102,4 +103,3 @@ User.init({
         sequelize,
         timestamps: false
     })
-

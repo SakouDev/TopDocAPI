@@ -6,6 +6,7 @@ export class Banned extends Model {
     reason!: string
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -29,4 +30,3 @@ Banned.init({
         sequelize,
         timestamps: false
     })
-

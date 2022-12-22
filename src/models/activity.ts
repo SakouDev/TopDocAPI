@@ -12,6 +12,7 @@ export class Activity extends Model {
     isActive!: boolean
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }

@@ -10,6 +10,7 @@ export class Hours extends Model {
     duration!: number
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -49,4 +50,3 @@ Hours.init({
         sequelize,
         timestamps: false
     })
-

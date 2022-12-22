@@ -8,6 +8,7 @@ export class Rdv extends Model {
     rdvDuration!: number
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -26,4 +27,3 @@ Rdv.init({
         sequelize,
         timestamps: false
     })
-

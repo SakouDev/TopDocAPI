@@ -10,9 +10,11 @@ export class Location extends Model {
     address!: string;
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
+
 Location.init({
     id: {
         type: DataTypes.INTEGER,
@@ -48,4 +50,3 @@ Location.init({
         sequelize,
         timestamps: false
     })
-

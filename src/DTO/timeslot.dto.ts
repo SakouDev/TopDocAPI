@@ -2,8 +2,8 @@ export interface TimeslotDTO {
 
     weekday: string
 
-    startHour: number
+    startHour: Date
 
-    endHour: number
+    endHour: Date
 
 }

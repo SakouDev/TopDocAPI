@@ -1,9 +1,8 @@
+import { Sequelize } from "sequelize"
 
-import { DataTypes, Sequelize } from "sequelize"
-
-
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+module.exports = (sequelize: Sequelize) => {
 
     return sequelize.define('Activity_Holiday', {
     })
+
 }

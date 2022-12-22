@@ -10,6 +10,7 @@ export class Planning extends Model {
     validityDuration!: number
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -49,4 +50,3 @@ Planning.init({
         sequelize,
         timestamps: false
     })
-

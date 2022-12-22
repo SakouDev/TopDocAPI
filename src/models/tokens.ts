@@ -8,6 +8,7 @@ export class Tokens extends Model {
     refreshToken!: string
 
 }
+
 const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
@@ -30,4 +31,3 @@ Tokens.init({
         sequelize,
         timestamps: false
     })
-
