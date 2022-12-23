@@ -21,7 +21,7 @@ export class User extends Model {
 
     role!: string
 
-    tokens!: string
+    token!: string
 
 }
 
@@ -90,7 +90,7 @@ User.init({
             notEmpty: { msg: concatRequiredMessage('Prénom') }
         }
     },
-    tokens: {
+    token: {
         type: DataTypes.STRING,
         allowNull: true,
         validate: {

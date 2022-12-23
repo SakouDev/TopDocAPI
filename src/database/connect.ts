@@ -1,9 +1,8 @@
-import { DataTypes } from 'sequelize'
 
 // MOCKS //
 
-import { users } from './mocks/mock-user'
-import { tokens } from './mocks/mock-tokens'
+import { user } from './mocks/mock-user'
+import { token } from './mocks/mock-token'
 import { holiday } from './mocks/mock-holiday'
 import { rdv } from './mocks/mock-rdv'
 import { locations } from './mocks/mock-location'
@@ -16,7 +15,7 @@ import { timeslots } from './mocks/mock-timeslot'
 // MODELS //
 
 import { User } from '../models/user'
-import { Tokens } from '../models/tokens'
+import { Token } from '../models/token'
 import { Holiday } from '../models/holiday'
 import { Rdv } from '../models/rdv'
 import { Location } from '../models/location'
@@ -26,20 +25,19 @@ import { Banned } from '../models/banned'
 import { Hours } from '../models/hours'
 import { Timeslot } from '../models/timeslot'
 
-const User_ActivityModel = require('../models/user_activity')
-const Activity_HolidayModel = require('../models/activity_holiday')
-const User_RdvModel = require('../models/user_rdv')
+// MODELS JUNCTION TABLE //
+
+import { User_Activity } from '../models/user_activity'
+import { Activity_Holiday } from '../models/activity_holiday'
+import { User_Rdv } from '../models/user_rdv'
+
+// SEQUELIZE LOGIN //
 
 import sequelize from './sequelize'
-
 sequelize.authenticate()
-    .then(() => console.log('Successfully connected to database.'))
-    .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
-    )
-
-export const User_Activity = User_ActivityModel(sequelize, DataTypes)
-export const Activity_Holiday = Activity_HolidayModel(sequelize, DataTypes)
-export const User_Rdv = User_RdvModel(sequelize, DataTypes)
+.then(() => console.log('Successfully connected to database.'))
+.catch((error: Error) => console.error(`Could not connect to database: ${error}`)
+)
 
 // User.hasOne(Candidate, { foreignKey: 'userId' })
 // Candidate.belongsTo(User, { foreignKey: 'userId' })
@@ -50,8 +48,8 @@ export const User_Rdv = User_RdvModel(sequelize, DataTypes)
 // User.hasOne(Admin, { foreignKey: 'userId' })
 // Admin.belongsTo(User, { foreignKey: 'userId' })
 
-// User.hasOne(Tokens, { foreignKey: 'userId' })
-// Tokens.belongsTo(User, { foreignKey: 'userId' })
+// User.hasOne(Token, { foreignKey: 'userId' })
+// Token.belongsTo(User, { foreignKey: 'userId' })
 
 User.belongsToMany(Activity, { through: User_Activity })
 Activity.belongsToMany(User, { through: User_Activity })
@@ -66,10 +64,10 @@ const initDb = () => {
 
     return sequelize.sync({ force: true }).then(() => {
 
-        tokens.map((tokens) => {
-            Tokens.create({
-                userId: tokens.userId,
-                refreshToken: tokens.refreshToken
+        token.map((token) => {
+            Token.create({
+                userId: token.userId,
+                refreshToken: token.refreshToken
             }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
         })
 
@@ -139,7 +137,7 @@ const initDb = () => {
             })
         })
 
-        users.map((user, index) => {
+        user.map((user, index) => {
             User.create({
                 firstname: user.firstname,
                 lastname: user.lastname,
@@ -149,7 +147,7 @@ const initDb = () => {
                 password: user.password,
                 phone: user.phone,
                 role: user.role,
-                tokens: user.tokens
+                token: user.token
             })
                 .then(async (req: any) => {
                     console.log(req.toJSON())
@@ -166,7 +164,7 @@ const initDb = () => {
 module.exports = {
     initDb,
     User,
-    Tokens,
+    Token,
     Activity,
     Holiday,
     Rdv,

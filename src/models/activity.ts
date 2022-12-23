@@ -27,24 +27,24 @@ Activity.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Tokens') },
-            notEmpty: { msg: concatRequiredMessage('Tokens') }
+            notNull: { msg: concatRequiredMessage('Token') },
+            notEmpty: { msg: concatRequiredMessage('Token') }
         }
     },
     description: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Tokens') },
-            notEmpty: { msg: concatRequiredMessage('Tokens') }
+            notNull: { msg: concatRequiredMessage('Token') },
+            notEmpty: { msg: concatRequiredMessage('Token') }
         }
     },
     nameCabinet: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Tokens') },
-            notEmpty: { msg: concatRequiredMessage('Tokens') }
+            notNull: { msg: concatRequiredMessage('Token') },
+            notEmpty: { msg: concatRequiredMessage('Token') }
         }
     },
     isActive: {

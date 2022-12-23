@@ -1,4 +1,4 @@
-export const users = [
+export const user = [
     {
         firstname: "Luc",
         lastname: "Vigneron",
@@ -8,7 +8,7 @@ export const users = [
         genre: "Homme",
         phone: "0658738863",
         role: "Admin",
-        tokens: "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
+        token: "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
     },
     {
         firstname: "Remy",
@@ -19,6 +19,6 @@ export const users = [
         genre: "Homme",
         phone: "0658738863",
         role: "Admin",
-        tokens: "ALED PC MONTAGE ALED"
+        token: "ALED PC MONTAGE ALED"
     }
 ];
