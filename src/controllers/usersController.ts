@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-import { handlerUser } from '../handler/userHandler'
+import { handlerUser } from '../handler/usersHandler'
 
 export const userController = Router();
 

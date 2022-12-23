@@ -2,7 +2,7 @@
 // MOCKS //
 
 import { user } from './mocks/mock-user'
-import { token } from './mocks/mock-token'
+import { token } from './mocks/mock-tokens'
 import { holiday } from './mocks/mock-holiday'
 import { rdv } from './mocks/mock-rdv'
 import { locations } from './mocks/mock-location'

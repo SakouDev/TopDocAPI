@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { userController } from "../userController";
+import { userController } from "../usersController";
 import { tokenController } from "../tokenController";
 import { holidayController } from "../holidayController";
 import { rdvController } from "../rdvController";
