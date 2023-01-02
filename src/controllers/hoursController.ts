@@ -1,6 +1,7 @@
+import { hoursHandler } from "../handler/injection/hours";
+
 const { Router } = require('express')
 
-import { handlerHours } from '../handler/hoursHandler'
 
 export const hoursController = Router();
 
@@ -21,7 +22,7 @@ export const hoursController = Router();
  *        200:
  *          description: Get the list of all hours.
  */
-hoursController.get('/', handlerHours.getAllHours)
+hoursController.get('/', hoursHandler.getAllHours)
 
 /**
  * @openapi
@@ -41,7 +42,7 @@ hoursController.get('/', handlerHours.getAllHours)
  */
 hoursController.get('/:id'
     // , authenticateHours
-    , handlerHours.getHoursById)
+    , hoursHandler.getHoursById)
 
 /**
  * @openapi
@@ -59,16 +60,16 @@ hoursController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new hours.
+ *          description: create a new hours.
  */
-hoursController.post('/', handlerHours.createHours)
+hoursController.post('/', hoursHandler.createHours)
 
 /**
  * @openapi
  * /api/hours/{id}:
  *  put:
  *      tags: [Hours]
- *      description: Update an hours
+ *      description: update an hours
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +85,18 @@ hoursController.post('/', handlerHours.createHours)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update hours of given id.
+ *          description: update hours of given id.
  */
 hoursController.put('/:id',
     // authenticateHours, authorization, 
-    handlerHours.updateHours)
+    hoursHandler.updateHours)
 
 /**
  * @openapi
  * /api/hours/{id}:
  *  delete:
  *      tags: [Hours]
- *      description: Delete an hours.
+ *      description: delete an hours.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +104,8 @@ hoursController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an hours.
+ *          description: delete an hours.
  */
 hoursController.delete('/:id',
     // authenticateHours, authorization, 
-    handlerHours.deleteHours)
+    hoursHandler.deleteHours)

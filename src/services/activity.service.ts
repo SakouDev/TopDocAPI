@@ -1,8 +1,9 @@
+import { IService } from './core/service.interface';
 import { ActivityDTO } from "../DTO/activity.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Activity } from "../models/activity"
 
-export class ActivityService {
+export class ActivityService implements IService<ActivityDTO> {
 
     private activityRepository: IRepository<ActivityDTO>
 
@@ -10,31 +11,31 @@ export class ActivityService {
         this.activityRepository = activityRepository
     }
 
-    async ActivityFindAll(): Promise<Array<ActivityDTO> | null> {
+    async findAll(): Promise<Array<ActivityDTO> | null> {
         return this.activityRepository.findAll().then((data) => {
             return data
         })
     }
 
-    async ActivityFindById(id: number): Promise<ActivityDTO | null> {
+    async findById(id: number): Promise<ActivityDTO | null> {
         return this.activityRepository.findById(id).then((data) => {
             return data
         })
     }
 
-    async ActivityCreate(activitys: Activity): Promise<ActivityDTO | null> {
-        return this.activityRepository.create(activitys).then((data) => {
+    async create(activity: Activity): Promise<ActivityDTO> {
+        return this.activityRepository.create(activity).then((data) => {
             return data
         })
     }
 
-    async ActivityDelete(id: number): Promise<boolean | number> {
+    async delete(id: number): Promise<boolean | number> {
         return this.activityRepository.delete(id).then((data: boolean | number) => {
             return data
         })
     }
 
-    async ActivityUpdate(activity: Activity, id: number): Promise<boolean | number> {
+    async update(activity: Activity, id: number): Promise<boolean | number> {
         return this.activityRepository.update(activity, id).then((data) => {
             return data
         })

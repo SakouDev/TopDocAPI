@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-import { handlerActivity } from '../handler/activityHandler'
+import { activityHandler } from '../handler/injection/activity';
 
 export const activityController = Router();
 
@@ -21,7 +21,7 @@ export const activityController = Router();
  *        200:
  *          description: Get the list of all activity.
  */
-activityController.get('/', handlerActivity.getAllActivity)
+activityController.get('/', activityHandler.getAllActivity)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ activityController.get('/', handlerActivity.getAllActivity)
  */
 activityController.get('/:id'
     // , authenticateActivity
-    , handlerActivity.getActivityById)
+    , activityHandler.getActivityById)
 
 /**
  * @openapi
@@ -59,16 +59,16 @@ activityController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new activity.
+ *          description: create a new activity.
  */
-activityController.post('/', handlerActivity.createActivity)
+activityController.post('/', activityHandler.createActivity)
 
 /**
  * @openapi
  * /api/activity/{id}:
  *  put:
  *      tags: [Activity]
- *      description: Update an activity
+ *      description: update an activity
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +84,18 @@ activityController.post('/', handlerActivity.createActivity)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update activity of given id.
+ *          description: update activity of given id.
  */
 activityController.put('/:id',
     // authenticateActivity, authorization, 
-    handlerActivity.updateActivity)
+    activityHandler.updateActivity)
 
 /**
  * @openapi
  * /api/activity/{id}:
  *  delete:
  *      tags: [Activity]
- *      description: Delete an activity.
+ *      description: delete an activity.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ activityController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an activity.
+ *          description: delete an activity.
  */
 activityController.delete('/:id',
     // authenticateActivity, authorization, 
-    handlerActivity.deleteActivity)
+    activityHandler.deleteActivity)

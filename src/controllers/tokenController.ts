@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-import { handlerToken } from '../handler/tokenHandler'
+import { tokenHandler } from '../handler/injection/token';
 
 export const tokenController = Router();
 
@@ -21,7 +21,7 @@ export const tokenController = Router();
  *        200:
  *          description: Get the list of all token.
  */
-tokenController.get('/', handlerToken.getAllToken)
+tokenController.get('/', tokenHandler.getAllToken)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ tokenController.get('/', handlerToken.getAllToken)
  */
 tokenController.get('/:id'
     // , authenticateToken
-    , handlerToken.getTokenById)
+    , tokenHandler.getTokenById)
 
 /**
  * @openapi
@@ -59,16 +59,16 @@ tokenController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new token.
+ *          description: create a new token.
  */
-tokenController.post('/', handlerToken.createToken)
+tokenController.post('/', tokenHandler.createToken)
 
 /**
  * @openapi
  * /api/token/{id}:
  *  put:
  *      tags: [Token]
- *      description: Update an token
+ *      description: update an token
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +84,18 @@ tokenController.post('/', handlerToken.createToken)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update token of given id.
+ *          description: update token of given id.
  */
 tokenController.put('/:id',
     // authenticateToken, authorization, 
-    handlerToken.updateToken)
+    tokenHandler.updateToken)
 
 /**
  * @openapi
  * /api/token/{id}:
  *  delete:
  *      tags: [Token]
- *      description: Delete an token.
+ *      description: delete an token.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ tokenController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an token.
+ *          description: delete an token.
  */
 tokenController.delete('/:id',
     // authenticateToken, authorization, 
-    handlerToken.deleteToken)
+    tokenHandler.deleteToken)

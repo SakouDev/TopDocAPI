@@ -1,6 +1,7 @@
 const { Router } = require('express')
 
-import { handlerUser } from '../handler/usersHandler'
+import { userHandler } from "../handler/injection/user";
+
 
 export const userController = Router();
 
@@ -21,7 +22,7 @@ export const userController = Router();
  *        200:
  *          description: Get the list of all user.
  */
-userController.get('/', handlerUser.getAllUser)
+userController.get('/', userHandler.getAllUser)
 
 /**
  * @openapi
@@ -41,7 +42,7 @@ userController.get('/', handlerUser.getAllUser)
  */
 userController.get('/:id'
     // , authenticateToken
-    , handlerUser.getUserById)
+    , userHandler.getUserById)
 
 /**
  * @openapi
@@ -59,16 +60,16 @@ userController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new user.
+ *          description: create a new user.
  */
-userController.post('/', handlerUser.createUser)
+userController.post('/', userHandler.createUser)
 
 /**
  * @openapi
  * /api/user/{id}:
  *  put:
  *      tags: [User]
- *      description: Update an user
+ *      description: update an user
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +85,18 @@ userController.post('/', handlerUser.createUser)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update user of given id.
+ *          description: update user of given id.
  */
 userController.put('/:id',
     // authenticateToken, authorization, 
-    handlerUser.updateUser)
+    userHandler.updateUser)
 
 /**
  * @openapi
  * /api/user/{id}:
  *  delete:
  *      tags: [User]
- *      description: Delete an user.
+ *      description: delete an user.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +104,8 @@ userController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an user.
+ *          description: delete an user.
  */
 userController.delete('/:id',
     // authenticateToken, authorization, 
-    handlerUser.deleteUser)
+    userHandler.deleteUser)

@@ -1,69 +1,67 @@
+import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { LocationService } from "../services/location.service";
-import { LocationRepository } from "../repository/location.repository";
+import { LocationDTO } from '../DTO/location.dto';
 const bcrypt = require("bcrypt");
 
 
-const locationService = new LocationService(new LocationRepository)
+export class LocationHandler {
 
+    private locationService : IService<LocationDTO>
 
-const getAllLocations = async (req: Request, res: Response) => {
-    try {
-        const result = await locationService.LocationFindAll()
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
+    constructor(locationService: IService<LocationDTO>) {
+        this.locationService = locationService;
     }
-}
 
-const getLocationById = async (req: Request, res: Response) => {
-    try {
-        const result = await locationService.LocationFindById(parseInt(req.params.id))
-        if (result === null) {
-            return res.status(404).send()
+    getAllLocation = async (req: Request, res: Response) => {
+        try {
+            const result = await this.locationService.findAll()
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
     }
-};
 
-const createLocation = async (req: Request, res: Response) => {
-    try {
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-        const result = await locationService.LocationCreate(req.body)
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const deleteLocation = async (req: Request, res: Response) => {
-    try {
-        const result = await locationService.LocationDelete(parseInt(req.params.id))
-        return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const updateLocation = async (req: Request, res: Response) => {
-    try {
-        if (req.body.password) {
-            let hashedPassword = await bcrypt.hash(req.body.password, 10);
-            req.body = { ...req.body, password: hashedPassword }
+    getLocationById = async (req: Request, res: Response) => {
+        try {
+            const result = await this.locationService.findById(parseInt(req.params.id))
+            if (result === null) {
+                return res.status(404).send()
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        const result = await locationService.LocationUpdate(req.body, parseInt(req.params.id))
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
+    };
 
-export const handlerLocation = {
-    getAllLocations,
-    getLocationById,
-    createLocation,
-    updateLocation,
-    deleteLocation
+    createLocation = async (req: Request, res: Response) => {
+        try {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+            const result = await this.locationService.create(req.body)
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    deleteLocation = async (req: Request, res: Response) => {
+        try {
+            const result = await this.locationService.delete(parseInt(req.params.id))
+            return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    updateLocation = async (req: Request, res: Response) => {
+        try {
+            if (req.body.password) {
+                let hashedPassword = await bcrypt.hash(req.body.password, 10);
+                req.body = { ...req.body, password: hashedPassword }
+            }
+            const result = await this.locationService.update(req.body, parseInt(req.params.id))
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
 }

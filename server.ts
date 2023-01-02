@@ -9,7 +9,7 @@ app.use(cors())
 
 const sequelize = require('./src/database/connect')
 
-app.use(express.json())
+app.use(express.json({ limit: '50kb' }))
 app.use('/api', apiController)
 
 

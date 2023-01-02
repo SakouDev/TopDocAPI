@@ -1,8 +1,9 @@
 import { UserDTO } from "../DTO/user.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { User } from "../models/user"
+import { IService } from "./core/service.interface";
 
-export class UserService {
+export class UserService implements IService<UserDTO> {
 
     private userRepository: IRepository<UserDTO>
 
@@ -10,31 +11,31 @@ export class UserService {
         this.userRepository = userRepository
     }
 
-    async UserFindAll(): Promise<Array<UserDTO> | null> {
+    async findAll(): Promise<Array<UserDTO> | null> {
         return this.userRepository.findAll().then((data) => {
             return data
         })
     }
 
-    async UserFindById(id: number): Promise<UserDTO | null> {
+    async findById(id: number): Promise<UserDTO | null> {
         return this.userRepository.findById(id).then((data) => {
             return data
         })
     }
 
-    async UserCreate(user: User): Promise<UserDTO | null> {
+    async create(user: User): Promise<UserDTO> {
         return this.userRepository.create(user).then((data) => {
             return data
         })
     }
 
-    async UserDelete(id: number): Promise<boolean | number> {
+    async delete(id: number): Promise<boolean | number> {
         return this.userRepository.delete(id).then((data: boolean | number) => {
             return data
         })
     }
 
-    async UserUpdate(user: User, id: number): Promise<boolean | number> {
+    async update(user: User, id: number): Promise<boolean | number> {
         return this.userRepository.update(user, id).then((data) => {
             return data
         })

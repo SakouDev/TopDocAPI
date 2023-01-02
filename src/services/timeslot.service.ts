@@ -1,8 +1,9 @@
 import { TimeslotDTO } from "../DTO/timeslot.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Timeslot } from "../models/timeslot"
+import { IService } from "./core/service.interface";
 
-export class TimeslotService {
+export class TimeslotService implements IService<TimeslotDTO> {
 
     private timeslotRepository: IRepository<TimeslotDTO>
 
@@ -10,31 +11,31 @@ export class TimeslotService {
         this.timeslotRepository = timeslotRepository
     }
 
-    async TimeslotFindAll(): Promise<Array<TimeslotDTO> | null> {
+    async findAll(): Promise<Array<TimeslotDTO> | null> {
         return this.timeslotRepository.findAll().then((data) => {
             return data
         })
     }
 
-    async TimeslotFindById(id: number): Promise<TimeslotDTO | null> {
+    async findById(id: number): Promise<TimeslotDTO | null> {
         return this.timeslotRepository.findById(id).then((data) => {
             return data
         })
     }
 
-    async TimeslotCreate(timeslots: Timeslot): Promise<TimeslotDTO | null> {
-        return this.timeslotRepository.create(timeslots).then((data) => {
+    async create(timeslot: Timeslot): Promise<TimeslotDTO> {
+        return this.timeslotRepository.create(timeslot).then((data) => {
             return data
         })
     }
 
-    async TimeslotDelete(id: number): Promise<boolean | number> {
+    async delete(id: number): Promise<boolean | number> {
         return this.timeslotRepository.delete(id).then((data: boolean | number) => {
             return data
         })
     }
 
-    async TimeslotUpdate(timeslot: Timeslot, id: number): Promise<boolean | number> {
+    async update(timeslot: Timeslot, id: number): Promise<boolean | number> {
         return this.timeslotRepository.update(timeslot, id).then((data) => {
             return data
         })

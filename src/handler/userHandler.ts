@@ -1,29 +1,29 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { PlanningDTO } from '../DTO/planning.dto';
+import { UserDTO } from '../DTO/user.dto';
 const bcrypt = require("bcrypt");
 
 
-export class PlanningHandler {
+export class UserHandler {
 
-    private planningService : IService<PlanningDTO>
+    private userService : IService<UserDTO>
 
-    constructor(planningService: IService<PlanningDTO>) {
-        this.planningService = planningService;
+    constructor(userService: IService<UserDTO>) {
+        this.userService = userService;
     }
 
-    getAllPlanning = async (req: Request, res: Response) => {
+    getAllUser = async (req: Request, res: Response) => {
         try {
-            const result = await this.planningService.findAll()
+            const result = await this.userService.findAll()
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);
         }
     }
 
-    getPlanningById = async (req: Request, res: Response) => {
+    getUserById = async (req: Request, res: Response) => {
         try {
-            const result = await this.planningService.findById(parseInt(req.params.id))
+            const result = await this.userService.findById(parseInt(req.params.id))
             if (result === null) {
                 return res.status(404).send()
             }
@@ -33,32 +33,32 @@ export class PlanningHandler {
         }
     };
 
-    createPlanning = async (req: Request, res: Response) => {
+    createUser = async (req: Request, res: Response) => {
         try {
             req.body.password = await bcrypt.hash(req.body.password, 10);
-            const result = await this.planningService.create(req.body)
+            const result = await this.userService.create(req.body)
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);
         }
     };
 
-    deletePlanning = async (req: Request, res: Response) => {
+    deleteUser = async (req: Request, res: Response) => {
         try {
-            const result = await this.planningService.delete(parseInt(req.params.id))
+            const result = await this.userService.delete(parseInt(req.params.id))
             return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
         } catch (error) {
             return res.status(500).json(error);
         }
     };
 
-    updatePlanning = async (req: Request, res: Response) => {
+    updateUser = async (req: Request, res: Response) => {
         try {
             if (req.body.password) {
                 let hashedPassword = await bcrypt.hash(req.body.password, 10);
                 req.body = { ...req.body, password: hashedPassword }
             }
-            const result = await this.planningService.update(req.body, parseInt(req.params.id))
+            const result = await this.userService.update(req.body, parseInt(req.params.id))
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);

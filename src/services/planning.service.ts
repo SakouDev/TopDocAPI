@@ -1,8 +1,9 @@
 import { PlanningDTO } from "../DTO/planning.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Planning } from "../models/planning"
+import { IService } from "./core/service.interface";
 
-export class PlanningService {
+export class PlanningService implements IService<PlanningDTO> {
 
     private planningRepository: IRepository<PlanningDTO>
 
@@ -10,31 +11,31 @@ export class PlanningService {
         this.planningRepository = planningRepository
     }
 
-    async PlanningFindAll(): Promise<Array<PlanningDTO> | null> {
+    async findAll(): Promise<Array<PlanningDTO> | null> {
         return this.planningRepository.findAll().then((data) => {
             return data
         })
     }
 
-    async PlanningFindById(id: number): Promise<PlanningDTO | null> {
+    async findById(id: number): Promise<PlanningDTO | null> {
         return this.planningRepository.findById(id).then((data) => {
             return data
         })
     }
 
-    async PlanningCreate(plannings: Planning): Promise<PlanningDTO | null> {
-        return this.planningRepository.create(plannings).then((data) => {
+    async create(planning: Planning): Promise<PlanningDTO> {
+        return this.planningRepository.create(planning).then((data) => {
             return data
         })
     }
 
-    async PlanningDelete(id: number): Promise<boolean | number> {
+    async delete(id: number): Promise<boolean | number> {
         return this.planningRepository.delete(id).then((data: boolean | number) => {
             return data
         })
     }
 
-    async PlanningUpdate(planning: Planning, id: number): Promise<boolean | number> {
+    async update(planning: Planning, id: number): Promise<boolean | number> {
         return this.planningRepository.update(planning, id).then((data) => {
             return data
         })

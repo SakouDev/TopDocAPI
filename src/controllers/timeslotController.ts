@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-import { handlerTimeslot } from '../handler/timeslotHandler'
+import { timeslotHandler } from '../handler/injection/timeslot';
 
 export const timeslotController = Router();
 
@@ -21,7 +21,7 @@ export const timeslotController = Router();
  *        200:
  *          description: Get the list of all timeslot.
  */
-timeslotController.get('/', handlerTimeslot.getAllTimeslot)
+timeslotController.get('/', timeslotHandler.getAllTimeslot)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ timeslotController.get('/', handlerTimeslot.getAllTimeslot)
  */
 timeslotController.get('/:id'
     // , authenticateTimeslot
-    , handlerTimeslot.getTimeslotById)
+    , timeslotHandler.getTimeslotById)
 
 /**
  * @openapi
@@ -59,9 +59,9 @@ timeslotController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new timeslot.
+ *          description: create a new timeslot.
  */
-timeslotController.post('/', handlerTimeslot.createTimeslot)
+timeslotController.post('/', timeslotHandler.createTimeslot)
 
 /**
  * @openapi
@@ -88,14 +88,14 @@ timeslotController.post('/', handlerTimeslot.createTimeslot)
  */
 timeslotController.put('/:id',
     // authenticateTimeslot, authorization, 
-    handlerTimeslot.updateTimeslot)
+    timeslotHandler.updateTimeslot)
 
 /**
  * @openapi
  * /api/timeslot/{id}:
  *  delete:
  *      tags: [Timeslot]
- *      description: Delete an timeslot.
+ *      description: delete an timeslot.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ timeslotController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an timeslot.
+ *          description: delete an timeslot.
  */
 timeslotController.delete('/:id',
     // authenticateTimeslot, authorization, 
-    handlerTimeslot.deleteTimeslot)
+    timeslotHandler.deleteTimeslot)

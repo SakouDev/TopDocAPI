@@ -1,69 +1,67 @@
+import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { RdvService } from "../services/rdv.service";
-import { RdvRepository } from "../repository/rdv.repository";
+import { RdvDTO } from '../DTO/rdv.dto';
 const bcrypt = require("bcrypt");
 
 
-const rdvService = new RdvService(new RdvRepository)
+export class RdvHandler {
 
+    private rdvService : IService<RdvDTO>
 
-const getAllRdv = async (req: Request, res: Response) => {
-    try {
-        const result = await rdvService.RdvFindAll()
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
+    constructor(rdvService: IService<RdvDTO>) {
+        this.rdvService = rdvService;
     }
-}
 
-const getRdvById = async (req: Request, res: Response) => {
-    try {
-        const result = await rdvService.RdvFindById(parseInt(req.params.id))
-        if (result === null) {
-            return res.status(404).send()
+    getAllRdv = async (req: Request, res: Response) => {
+        try {
+            const result = await this.rdvService.findAll()
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
     }
-};
 
-const createRdv = async (req: Request, res: Response) => {
-    try {
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-        const result = await rdvService.RdvCreate(req.body)
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const deleteRdv = async (req: Request, res: Response) => {
-    try {
-        const result = await rdvService.RdvDelete(parseInt(req.params.id))
-        return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const updateRdv = async (req: Request, res: Response) => {
-    try {
-        if (req.body.password) {
-            let hashedPassword = await bcrypt.hash(req.body.password, 10);
-            req.body = { ...req.body, password: hashedPassword }
+    getRdvById = async (req: Request, res: Response) => {
+        try {
+            const result = await this.rdvService.findById(parseInt(req.params.id))
+            if (result === null) {
+                return res.status(404).send()
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        const result = await rdvService.RdvUpdate(req.body, parseInt(req.params.id))
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
+    };
 
-export const handlerRdv = {
-    getAllRdv,
-    getRdvById,
-    createRdv,
-    updateRdv,
-    deleteRdv
+    createRdv = async (req: Request, res: Response) => {
+        try {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+            const result = await this.rdvService.create(req.body)
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    deleteRdv = async (req: Request, res: Response) => {
+        try {
+            const result = await this.rdvService.delete(parseInt(req.params.id))
+            return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    updateRdv = async (req: Request, res: Response) => {
+        try {
+            if (req.body.password) {
+                let hashedPassword = await bcrypt.hash(req.body.password, 10);
+                req.body = { ...req.body, password: hashedPassword }
+            }
+            const result = await this.rdvService.update(req.body, parseInt(req.params.id))
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
 }

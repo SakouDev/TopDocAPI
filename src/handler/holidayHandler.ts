@@ -1,69 +1,67 @@
+import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { HolidayService } from "../services/holiday.service";
-import { HolidayRepository } from "../repository/holiday.repository";
+import { HolidayDTO } from '../DTO/holiday.dto';
 const bcrypt = require("bcrypt");
 
 
-const holidayService = new HolidayService(new HolidayRepository)
+export class HolidayHandler {
 
+    private holidayService : IService<HolidayDTO>
 
-const getAllHoliday = async (req: Request, res: Response) => {
-    try {
-        const result = await holidayService.HolidayFindAll()
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
+    constructor(holidayService: IService<HolidayDTO>) {
+        this.holidayService = holidayService;
     }
-}
 
-const getHolidayById = async (req: Request, res: Response) => {
-    try {
-        const result = await holidayService.HolidayFindById(parseInt(req.params.id))
-        if (result === null) {
-            return res.status(404).send()
+    getAllHoliday = async (req: Request, res: Response) => {
+        try {
+            const result = await this.holidayService.findAll()
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
     }
-};
 
-const createHoliday = async (req: Request, res: Response) => {
-    try {
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-        const result = await holidayService.HolidayCreate(req.body)
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const deleteHoliday = async (req: Request, res: Response) => {
-    try {
-        const result = await holidayService.HolidayDelete(parseInt(req.params.id))
-        return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
-
-const updateHoliday = async (req: Request, res: Response) => {
-    try {
-        if (req.body.password) {
-            let hashedPassword = await bcrypt.hash(req.body.password, 10);
-            req.body = { ...req.body, password: hashedPassword }
+    getHolidayById = async (req: Request, res: Response) => {
+        try {
+            const result = await this.holidayService.findById(parseInt(req.params.id))
+            if (result === null) {
+                return res.status(404).send()
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
         }
-        const result = await holidayService.HolidayUpdate(req.body, parseInt(req.params.id))
-        return res.status(200).json(result);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-};
+    };
 
-export const handlerHoliday = {
-    getAllHoliday,
-    getHolidayById,
-    createHoliday,
-    updateHoliday,
-    deleteHoliday
+    createHoliday = async (req: Request, res: Response) => {
+        try {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+            const result = await this.holidayService.create(req.body)
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    deleteHoliday = async (req: Request, res: Response) => {
+        try {
+            const result = await this.holidayService.delete(parseInt(req.params.id))
+            return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
+
+    updateHoliday = async (req: Request, res: Response) => {
+        try {
+            if (req.body.password) {
+                let hashedPassword = await bcrypt.hash(req.body.password, 10);
+                req.body = { ...req.body, password: hashedPassword }
+            }
+            const result = await this.holidayService.update(req.body, parseInt(req.params.id))
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    };
 }

@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-import { handlerBanned } from '../handler/bannedHandler'
+import { bannedHandler } from '../handler/injection/banned'
 
 export const bannedController = Router();
 
@@ -21,7 +21,7 @@ export const bannedController = Router();
  *        200:
  *          description: Get the list of all banned.
  */
-bannedController.get('/', handlerBanned.getAllBanned)
+bannedController.get('/', bannedHandler.getAllBanned)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ bannedController.get('/', handlerBanned.getAllBanned)
  */
 bannedController.get('/:id'
     // , authenticateBanned
-    , handlerBanned.getBannedById)
+    , bannedHandler.getBannedById)
 
 /**
  * @openapi
@@ -59,16 +59,16 @@ bannedController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new banned.
+ *          description: create a new banned.
  */
-bannedController.post('/', handlerBanned.createBanned)
+bannedController.post('/', bannedHandler.createBanned)
 
 /**
  * @openapi
  * /api/banned/{id}:
  *  put:
  *      tags: [Banned]
- *      description: Update an banned
+ *      description: update an banned
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +84,18 @@ bannedController.post('/', handlerBanned.createBanned)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update banned of given id.
+ *          description: update banned of given id.
  */
 bannedController.put('/:id',
     // authenticateBanned, authorization, 
-    handlerBanned.updateBanned)
+    bannedHandler.updateBanned)
 
 /**
  * @openapi
  * /api/banned/{id}:
  *  delete:
  *      tags: [Banned]
- *      description: Delete an banned.
+ *      description: delete an banned.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ bannedController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an banned.
+ *          description: delete an banned.
  */
 bannedController.delete('/:id',
     // authenticateBanned, authorization, 
-    handlerBanned.deleteBanned)
+    bannedHandler.deleteBanned)

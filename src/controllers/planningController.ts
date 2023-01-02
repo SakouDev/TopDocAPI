@@ -1,6 +1,6 @@
-const { Router } = require('express')
+import { planningHandler } from "../handler/injection/planning";
 
-import { handlerPlanning } from '../handler/planningHandler'
+const { Router } = require('express')
 
 export const planningController = Router();
 
@@ -21,7 +21,7 @@ export const planningController = Router();
  *        200:
  *          description: Get the list of all planning.
  */
-planningController.get('/', handlerPlanning.getAllPlanning)
+planningController.get('/', planningHandler.getAllPlanning)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ planningController.get('/', handlerPlanning.getAllPlanning)
  */
 planningController.get('/:id'
     // , authenticatePlanning
-    , handlerPlanning.getPlanningById)
+    , planningHandler.getPlanningById)
 
 /**
  * @openapi
@@ -59,16 +59,16 @@ planningController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new planning.
+ *          description: create a new planning.
  */
-planningController.post('/', handlerPlanning.createPlanning)
+planningController.post('/', planningHandler.createPlanning)
 
 /**
  * @openapi
  * /api/planning/{id}:
  *  put:
  *      tags: [Planning]
- *      description: Update an planning
+ *      description: update an planning
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +84,18 @@ planningController.post('/', handlerPlanning.createPlanning)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update planning of given id.
+ *          description: update planning of given id.
  */
 planningController.put('/:id',
     // authenticatePlanning, authorization, 
-    handlerPlanning.updatePlanning)
+    planningHandler.updatePlanning)
 
 /**
  * @openapi
  * /api/planning/{id}:
  *  delete:
  *      tags: [Planning]
- *      description: Delete an planning.
+ *      description: delete an planning.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ planningController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an planning.
+ *          description: delete an planning.
  */
 planningController.delete('/:id',
     // authenticatePlanning, authorization, 
-    handlerPlanning.deletePlanning)
+    planningHandler.deletePlanning)

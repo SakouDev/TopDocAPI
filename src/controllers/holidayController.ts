@@ -1,6 +1,6 @@
-const { Router } = require('express')
+import { holidayHandler } from "../handler/injection/holiday";
 
-import { handlerHoliday } from '../handler/holidayHandler'
+const { Router } = require('express')
 
 export const holidayController = Router();
 
@@ -21,7 +21,7 @@ export const holidayController = Router();
  *        200:
  *          description: Get the list of all holiday.
  */
-holidayController.get('/', handlerHoliday.getAllHoliday)
+holidayController.get('/', holidayHandler.getAllHoliday)
 
 /**
  * @openapi
@@ -41,7 +41,7 @@ holidayController.get('/', handlerHoliday.getAllHoliday)
  */
 holidayController.get('/:id'
     // , authenticateHoliday
-    , handlerHoliday.getHolidayById)
+    , holidayHandler.getHolidayById)
 
 /**
  * @openapi
@@ -59,16 +59,16 @@ holidayController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Create a new holiday.
+ *          description: create a new holiday.
  */
-holidayController.post('/', handlerHoliday.createHoliday)
+holidayController.post('/', holidayHandler.createHoliday)
 
 /**
  * @openapi
  * /api/holiday/{id}:
  *  put:
  *      tags: [Holiday]
- *      description: Update an holiday
+ *      description: update an holiday
  *      consumes:
  *       - application/json
  *      parameters:
@@ -84,18 +84,18 @@ holidayController.post('/', handlerHoliday.createHoliday)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: Update holiday of given id.
+ *          description: update holiday of given id.
  */
 holidayController.put('/:id',
     // authenticateHoliday, authorization, 
-    handlerHoliday.updateHoliday)
+    holidayHandler.updateHoliday)
 
 /**
  * @openapi
  * /api/holiday/{id}:
  *  delete:
  *      tags: [Holiday]
- *      description: Delete an holiday.
+ *      description: delete an holiday.
  *      parameters:
  *       - name: id
  *         in: path
@@ -103,8 +103,8 @@ holidayController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: Delete an holiday.
+ *          description: delete an holiday.
  */
 holidayController.delete('/:id',
     // authenticateHoliday, authorization, 
-    handlerHoliday.deleteHoliday)
+    holidayHandler.deleteHoliday)
