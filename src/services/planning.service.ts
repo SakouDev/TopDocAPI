@@ -12,33 +12,23 @@ export class PlanningService implements IService<PlanningDTO> {
     }
 
     async findAll(): Promise<Array<PlanningDTO> | null> {
-        return this.planningRepository.findAll().then((data) => {
-            return data
-        })
+        return this.planningRepository.findAll()
     }
 
     async findById(id: number): Promise<PlanningDTO | null> {
-        return this.planningRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.planningRepository.findById(id)
     }
 
     async create(planning: Planning): Promise<PlanningDTO> {
-        return this.planningRepository.create(planning).then((data) => {
-            return data
-        })
+        return this.planningRepository.create(planning)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.planningRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.planningRepository.delete(id)
     }
 
     async update(planning: Planning, id: number): Promise<boolean | number> {
-        return this.planningRepository.update(planning, id).then((data) => {
-            return data
-        })
+        return this.planningRepository.update(planning, id)
     }
 
 }

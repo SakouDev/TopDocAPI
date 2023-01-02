@@ -12,33 +12,23 @@ export class UserService implements IService<UserDTO> {
     }
 
     async findAll(): Promise<Array<UserDTO> | null> {
-        return this.userRepository.findAll().then((data) => {
-            return data
-        })
+        return this.userRepository.findAll()
     }
 
     async findById(id: number): Promise<UserDTO | null> {
-        return this.userRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.userRepository.findById(id)
     }
 
     async create(user: User): Promise<UserDTO> {
-        return this.userRepository.create(user).then((data) => {
-            return data
-        })
+        return this.userRepository.create(user)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.userRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.userRepository.delete(id)
     }
 
     async update(user: User, id: number): Promise<boolean | number> {
-        return this.userRepository.update(user, id).then((data) => {
-            return data
-        })
+        return this.userRepository.update(user, id)
     }
 
 }

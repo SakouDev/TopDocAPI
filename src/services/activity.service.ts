@@ -12,33 +12,23 @@ export class ActivityService implements IService<ActivityDTO> {
     }
 
     async findAll(): Promise<Array<ActivityDTO> | null> {
-        return this.activityRepository.findAll().then((data) => {
-            return data
-        })
+        return this.activityRepository.findAll()
     }
 
     async findById(id: number): Promise<ActivityDTO | null> {
-        return this.activityRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.activityRepository.findById(id)
     }
 
     async create(activity: Activity): Promise<ActivityDTO> {
-        return this.activityRepository.create(activity).then((data) => {
-            return data
-        })
+        return this.activityRepository.create(activity)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.activityRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.activityRepository.delete(id)
     }
 
     async update(activity: Activity, id: number): Promise<boolean | number> {
-        return this.activityRepository.update(activity, id).then((data) => {
-            return data
-        })
+        return this.activityRepository.update(activity, id)
     }
 
 }

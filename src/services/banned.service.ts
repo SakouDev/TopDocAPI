@@ -12,33 +12,23 @@ export class BannedService implements IService<BannedDTO> {
     }
 
     async findAll(): Promise<Array<BannedDTO> | null> {
-        return this.bannedRepository.findAll().then((data) => {
-            return data
-        })
+        return this.bannedRepository.findAll()
     }
 
     async findById(id: number): Promise<BannedDTO | null> {
-        return this.bannedRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.bannedRepository.findById(id)
     }
 
     async create(banned: Banned): Promise<BannedDTO> {
-        return this.bannedRepository.create(banned).then((data) => {
-            return data
-        })
+        return this.bannedRepository.create(banned)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.bannedRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.bannedRepository.delete(id)
     }
 
     async update(banned: Banned, id: number): Promise<boolean | number> {
-        return this.bannedRepository.update(banned, id).then((data) => {
-            return data
-        })
+        return this.bannedRepository.update(banned, id)
     }
 
 }

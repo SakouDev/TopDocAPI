@@ -12,33 +12,23 @@ export class LocationService implements IService<LocationDTO> {
     }
 
     async findAll(): Promise<Array<LocationDTO> | null> {
-        return this.locationRepository.findAll().then((data) => {
-            return data
-        })
+        return this.locationRepository.findAll()
     }
 
     async findById(id: number): Promise<LocationDTO | null> {
-        return this.locationRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.locationRepository.findById(id)
     }
 
     async create(location: Location): Promise<LocationDTO> {
-        return this.locationRepository.create(location).then((data) => {
-            return data
-        })
+        return this.locationRepository.create(location)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.locationRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.locationRepository.delete(id)
     }
 
     async update(location: Location, id: number): Promise<boolean | number> {
-        return this.locationRepository.update(location, id).then((data) => {
-            return data
-        })
+        return this.locationRepository.update(location, id)
     }
 
 }

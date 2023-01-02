@@ -12,33 +12,23 @@ export class TokenService implements IService<TokenDTO> {
     }
 
     async findAll(): Promise<Array<TokenDTO> | null> {
-        return this.tokenRepository.findAll().then((data) => {
-            return data
-        })
+        return this.tokenRepository.findAll()
     }
 
     async findById(id: number): Promise<TokenDTO | null> {
-        return this.tokenRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.tokenRepository.findById(id)
     }
 
     async create(token: Token): Promise<TokenDTO> {
-        return this.tokenRepository.create(token).then((data) => {
-            return data
-        })
+        return this.tokenRepository.create(token)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.tokenRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.tokenRepository.delete(id)
     }
 
     async update(token: Token, id: number): Promise<boolean | number> {
-        return this.tokenRepository.update(token, id).then((data) => {
-            return data
-        })
+        return this.tokenRepository.update(token, id)
     }
 
 }

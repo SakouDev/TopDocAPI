@@ -12,33 +12,23 @@ export class HoursService implements IService<HoursDTO> {
     }
 
     async findAll(): Promise<Array<HoursDTO> | null> {
-        return this.hoursRepository.findAll().then((data) => {
-            return data
-        })
+        return this.hoursRepository.findAll()
     }
 
     async findById(id: number): Promise<HoursDTO | null> {
-        return this.hoursRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.hoursRepository.findById(id)
     }
 
     async create(hours: Hours): Promise<HoursDTO> {
-        return this.hoursRepository.create(hours).then((data) => {
-            return data
-        })
+        return this.hoursRepository.create(hours)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.hoursRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.hoursRepository.delete(id)
     }
 
     async update(hours: Hours, id: number): Promise<boolean | number> {
-        return this.hoursRepository.update(hours, id).then((data) => {
-            return data
-        })
+        return this.hoursRepository.update(hours, id)
     }
 
 }

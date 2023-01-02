@@ -12,33 +12,23 @@ export class HolidayService implements IService<HolidayDTO> {
     }
 
     async findAll(): Promise<Array<HolidayDTO> | null> {
-        return this.holidayRepository.findAll().then((data) => {
-            return data
-        })
+        return this.holidayRepository.findAll()
     }
 
     async findById(id: number): Promise<HolidayDTO | null> {
-        return this.holidayRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.holidayRepository.findById(id)
     }
 
     async create(holiday: Holiday): Promise<HolidayDTO> {
-        return this.holidayRepository.create(holiday).then((data) => {
-            return data
-        })
+        return this.holidayRepository.create(holiday)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.holidayRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.holidayRepository.delete(id)
     }
 
     async update(holiday: Holiday, id: number): Promise<boolean | number> {
-        return this.holidayRepository.update(holiday, id).then((data) => {
-            return data
-        })
+        return this.holidayRepository.update(holiday, id)
     }
 
 }

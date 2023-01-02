@@ -12,33 +12,23 @@ export class TimeslotService implements IService<TimeslotDTO> {
     }
 
     async findAll(): Promise<Array<TimeslotDTO> | null> {
-        return this.timeslotRepository.findAll().then((data) => {
-            return data
-        })
+        return this.timeslotRepository.findAll()
     }
 
     async findById(id: number): Promise<TimeslotDTO | null> {
-        return this.timeslotRepository.findById(id).then((data) => {
-            return data
-        })
+        return this.timeslotRepository.findById(id)
     }
 
     async create(timeslot: Timeslot): Promise<TimeslotDTO> {
-        return this.timeslotRepository.create(timeslot).then((data) => {
-            return data
-        })
+        return this.timeslotRepository.create(timeslot)
     }
 
     async delete(id: number): Promise<boolean | number> {
-        return this.timeslotRepository.delete(id).then((data: boolean | number) => {
-            return data
-        })
+        return this.timeslotRepository.delete(id)
     }
 
     async update(timeslot: Timeslot, id: number): Promise<boolean | number> {
-        return this.timeslotRepository.update(timeslot, id).then((data) => {
-            return data
-        })
+        return this.timeslotRepository.update(timeslot, id)
     }
 
 }
