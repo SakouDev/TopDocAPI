@@ -4,14 +4,14 @@
 ### This is a React project ! 
 - ##### Clone
 ```bash
-mkdir TopDoc
-cd TopDoc
-git clone https://github.com/SakouDev/TopDoc.git .
+mkdir TopDocAPI
+cd TopDocAPI
+git clone https://github.com/SakouDev/TopDocAPI.git .
 ```
 - ##### Install & Start
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
 ## Github Commit Naming Convention
@@ -29,9 +29,11 @@ npm start
 
 ## Documentation
 
--Axios : https://axios-http.com/docs/intro
+-Express : https://expressjs.com/fr/
 
--React-Router (V6) : https://reactrouter.com/docs/en/v6
+-JWT : https://jwt.io/introduction
+
+-TypeScript : https://www.typescriptlang.org/docs/
 
 # Author :
 
@@ -40,4 +42,4 @@ npm start
 
 ## Related
 
-Here is the FrontEnd of this project: [TopDocAPI](https://github.com/SakouDev/TopDoc)
+Here is the FrontEnd of this project: [TopDoc](https://github.com/SakouDev/TopDoc)
