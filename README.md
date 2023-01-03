@@ -1,7 +1,7 @@
 ![alt text](https://www.zupimages.net/up/22/48/cel5.png)
 
 
-### This is a React project ! 
+### This is a NodeJS with Express project ! 
 - ##### Clone
 ```bash
 mkdir TopDocAPI
