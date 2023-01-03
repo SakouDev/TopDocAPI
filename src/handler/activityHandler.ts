@@ -24,8 +24,8 @@ export class ActivityHandler {
     getActivityById = async (req: Request, res: Response) => {
         try {
             const result = await this.activityService.findById(parseInt(req.params.id))
-            if (result === null) {
-                return res.status(404).send()
+            if (!result) {
+                return res.status(404).json("Activity not found");
             }
             return res.status(200).json(result);
         } catch (error) {
