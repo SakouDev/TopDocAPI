@@ -1,7 +1,7 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
 import { PlanningDTO } from '../DTO/planning.dto';
-const bcrypt = require("bcrypt");
+import bcrypt from 'bcrypt';
 
 
 export class PlanningHandler {

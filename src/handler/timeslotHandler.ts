@@ -1,7 +1,7 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
 import { TimeslotDTO } from '../DTO/timeslot.dto';
-const bcrypt = require("bcrypt");
+import bcrypt from 'bcrypt';
 
 
 export class TimeslotHandler {

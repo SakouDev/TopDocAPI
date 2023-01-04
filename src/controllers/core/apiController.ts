@@ -12,6 +12,7 @@ import { timeslotController } from '../timeslotController';
 import { bannedController } from "../bannedController";
 
 import { port } from "../../../server";
+import { authController } from "../authController";
 
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -60,6 +61,8 @@ apiController.use('/planning', planningController)
 apiController.use('/activity', activityController)
 apiController.use('/timeslot', timeslotController)
 apiController.use('/banned', bannedController)
+apiController.use('/auth', authController)
+    
 
 
 export { apiController }

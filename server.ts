@@ -10,7 +10,7 @@ app.use(cors())
 const sequelize = require('./src/database/connect')
 
 app.use(express.json({ limit: '50kb' }))
-app.use('/api/v0.1', apiController)
+app.use('/api', apiController)
 
 
 export const port = process.env.PORT || 5000

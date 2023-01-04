@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken';
+import { VerifyOptions } from "jsonwebtoken";
 
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
 
@@ -8,8 +9,11 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
 
     if (token == null) return res.status(401).json('Veuillez vous connecter.')
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err: Error) => {
-        if (err) return res.status(401).json(err)
-        next()
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err: any) => {
+        if (err) {
+            return res.send(401).json(err);
+        }
+        next();
     })
+
 }

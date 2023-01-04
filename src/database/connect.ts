@@ -25,11 +25,8 @@ import { Banned } from '../models/banned'
 import { Hours } from '../models/hours'
 import { Timeslot } from '../models/timeslot'
 
-// MODELS JUNCTION TABLE //
 
-import { User_Activity } from '../models/user_activity'
-import { Activity_Holiday } from '../models/activity_holiday'
-import { User_Rdv } from '../models/user_rdv'
+import { User_Token } from '../models/user_token'
 
 // SEQUELIZE LOGIN //
 
@@ -39,26 +36,25 @@ sequelize.authenticate()
 .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
 )
 
-// User.hasOne(Candidate, { foreignKey: 'userId' })
-// Candidate.belongsTo(User, { foreignKey: 'userId' })
+// ASSOCIATIONS //
 
-// User.hasOne(Company, { foreignKey: 'userId' })
-// Company.belongsTo(User, { foreignKey: 'userId' })
+User.hasOne(Rdv, { foreignKey: 'userId' })
+Rdv.belongsTo(User, { foreignKey: 'userId' })
 
-// User.hasOne(Admin, { foreignKey: 'userId' })
-// Admin.belongsTo(User, { foreignKey: 'userId' })
+User.hasOne(Banned, { foreignKey: 'userId' })
+Banned.belongsTo(User, { foreignKey: 'userId' })
 
-// User.hasOne(Token, { foreignKey: 'userId' })
-// Token.belongsTo(User, { foreignKey: 'userId' })
+User.belongsToMany(Token, { through: User_Token })
+Token.belongsToMany(User, { through: User_Token })
 
-User.belongsToMany(Activity, { through: User_Activity })
-Activity.belongsToMany(User, { through: User_Activity })
+User.belongsToMany(Activity, { through: 'User_Activity' })
+Activity.belongsToMany(User, { through: 'User_Activity' })
 
-Holiday.belongsToMany(Activity, { through: Activity_Holiday })
-Activity.belongsToMany(Holiday, { through: Activity_Holiday })
+Holiday.belongsToMany(Activity, { through: 'Activity_Holiday' })
+Activity.belongsToMany(Holiday, { through: 'Activity_Holiday' })
 
-User.belongsToMany(Rdv, { through: User_Rdv })
-Rdv.belongsToMany(User, { through: User_Rdv })
+User.belongsToMany(Rdv, { through: 'User_Rdv' })
+Rdv.belongsToMany(User, { through: 'User_Rdv' })
 
 const initDb = () => {
 
@@ -88,7 +84,7 @@ const initDb = () => {
                 .then(async (req: any) => {
                     console.log(req.toJSON())
                     const holidayRow = await Holiday.findByPk(index + 1);
-                    await req.addHoliday(holidayRow, { through: Activity_Holiday })
+                    await req.addHoliday(holidayRow, { through: 'Activity_Holiday' })
                 })
         })
 
@@ -152,7 +148,7 @@ const initDb = () => {
                 .then(async (req: any) => {
                     console.log(req.toJSON())
                     const activityRow = await Activity.findByPk(index + 1);
-                    await req.addActivity(activityRow, { through: User_Activity })
+                    await req.addActivity(activityRow, { through: 'User_Activity' })
                 })
         })
 
