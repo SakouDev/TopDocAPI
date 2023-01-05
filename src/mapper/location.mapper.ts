@@ -1,4 +1,4 @@
-import { LocationDTO } from "../DTO/location.dto";
+import { LocationDTO } from "../../types/DTO/location.dto";
 import { Location } from "../models/location";
 
 export class LocationMapper {

@@ -1,5 +1,5 @@
 import { Banned } from "../models/banned";
-import { BannedDTO } from "../DTO/banned.dto";
+import { BannedDTO } from "../../types/DTO/banned.dto";
 import { BannedMapper } from "../mapper/banned.mapper";
 import { IRepository } from "./core/repository.interface";
 

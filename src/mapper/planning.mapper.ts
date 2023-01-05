@@ -1,4 +1,4 @@
-import { PlanningDTO } from "../DTO/planning.dto";
+import { PlanningDTO } from "../../types/DTO/planning.dto";
 import { Planning } from "../models/planning";
 
 export class PlanningMapper {

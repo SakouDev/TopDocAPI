@@ -1,5 +1,5 @@
 import { User } from "../models/user";
-import { UserDTO } from "../DTO/user.dto";
+import { UserDTO } from "../../types/DTO/user.dto";
 import { UserMapper } from "../mapper/user.mapper";
 import { IRepository } from "./core/repository.interface";
 

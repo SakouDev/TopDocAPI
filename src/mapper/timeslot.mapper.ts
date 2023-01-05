@@ -1,4 +1,4 @@
-import { TimeslotDTO } from "../DTO/timeslot.dto";
+import { TimeslotDTO } from "../../types/DTO/timeslot.dto";
 import { Timeslot } from "../models/timeslot";
 
 export class TimeslotMapper {

@@ -1,6 +1,6 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { PlanningDTO } from '../DTO/planning.dto';
+import { PlanningDTO } from '../../types/DTO/planning.dto';
 import bcrypt from 'bcrypt';
 
 

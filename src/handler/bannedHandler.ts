@@ -1,6 +1,6 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { BannedDTO } from '../DTO/banned.dto';
+import { BannedDTO } from '../../types/DTO/banned.dto';
 import bcrypt from 'bcrypt';
 
 

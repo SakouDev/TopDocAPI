@@ -1,5 +1,5 @@
 import { IService } from './core/service.interface';
-import { ActivityDTO } from "../DTO/activity.dto";
+import { ActivityDTO } from "../../types/DTO/activity.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Activity } from "../models/activity"
 

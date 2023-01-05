@@ -1,5 +1,5 @@
 import { Token } from "../models/token";
-import { TokenDTO } from "../DTO/token.dto";
+import { TokenDTO } from "../../types/DTO/token.dto";
 import { TokenMapper } from "../mapper/token.mapper";
 import { IRepository } from "./core/repository.interface";
 

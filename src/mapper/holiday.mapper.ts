@@ -1,4 +1,4 @@
-import { HolidayDTO } from "../DTO/holiday.dto";
+import { HolidayDTO } from "../../types/DTO/holiday.dto";
 import { Holiday } from "../models/holiday";
 
 export class HolidayMapper {

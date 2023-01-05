@@ -1,4 +1,4 @@
-import { RdvDTO } from "../DTO/rdv.dto";
+import { RdvDTO } from "../../types/DTO/rdv.dto";
 import { Rdv } from "../models/rdv";
 
 export class RdvMapper {

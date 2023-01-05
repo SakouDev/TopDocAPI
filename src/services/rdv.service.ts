@@ -1,4 +1,4 @@
-import { RdvDTO } from "../DTO/rdv.dto";
+import { RdvDTO } from "../../types/DTO/rdv.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Rdv } from "../models/rdv"
 import { IService } from "./core/service.interface";

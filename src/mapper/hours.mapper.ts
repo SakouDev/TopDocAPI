@@ -1,4 +1,4 @@
-import { HoursDTO } from "../DTO/hours.dto";
+import { HoursDTO } from "../../types/DTO/hours.dto";
 import { Hours } from "../models/hours";
 
 export class HoursMapper {

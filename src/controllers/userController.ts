@@ -57,7 +57,7 @@ userController.get('/:id'
  *         in: body
  *         required: true
  *         type: object
- *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
+ *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "0658738863", "role" : "Admin" }
  *      responses:
  *        200:
  *          description: create a new user.

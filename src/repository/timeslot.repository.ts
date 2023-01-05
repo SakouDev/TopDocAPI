@@ -1,5 +1,5 @@
 import { Timeslot } from "../models/timeslot";
-import { TimeslotDTO } from "../DTO/timeslot.dto";
+import { TimeslotDTO } from "../../types/DTO/timeslot.dto";
 import { TimeslotMapper } from "../mapper/timeslot.mapper";
 import { IRepository } from "./core/repository.interface";
 

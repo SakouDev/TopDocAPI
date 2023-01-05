@@ -1,5 +1,5 @@
 import { Activity } from "../models/activity";
-import { ActivityDTO } from "../DTO/activity.dto";
+import { ActivityDTO } from "../../types/DTO/activity.dto";
 import { ActivityMapper } from "../mapper/activity.mapper";
 import { IRepository } from "./core/repository.interface";
 

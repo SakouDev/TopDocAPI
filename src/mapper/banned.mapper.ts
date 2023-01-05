@@ -1,4 +1,4 @@
-import { BannedDTO } from "../DTO/banned.dto";
+import { BannedDTO } from "../../types/DTO/banned.dto";
 import { Banned } from "../models/banned";
 
 export class BannedMapper {

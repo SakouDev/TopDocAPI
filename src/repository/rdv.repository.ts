@@ -1,5 +1,5 @@
 import { Rdv } from "../models/rdv";
-import { RdvDTO } from "../DTO/rdv.dto";
+import { RdvDTO } from "../../types/DTO/rdv.dto";
 import { RdvMapper } from "../mapper/rdv.mapper";
 import { IRepository } from "./core/repository.interface";
 

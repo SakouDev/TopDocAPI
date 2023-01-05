@@ -1,4 +1,4 @@
-import { TimeslotDTO } from "../DTO/timeslot.dto";
+import { TimeslotDTO } from "../../types/DTO/timeslot.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Timeslot } from "../models/timeslot"
 import { IService } from "./core/service.interface";

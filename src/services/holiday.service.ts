@@ -1,4 +1,4 @@
-import { HolidayDTO } from "../DTO/holiday.dto";
+import { HolidayDTO } from "../../types/DTO/holiday.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Holiday } from "../models/holiday"
 import { IService } from "./core/service.interface";

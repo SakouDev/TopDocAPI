@@ -1,4 +1,4 @@
-import { TokenDTO } from "../DTO/token.dto";
+import { TokenDTO } from "../../types/DTO/token.dto";
 import { Token } from "../models/token";
 
 export class TokenMapper {

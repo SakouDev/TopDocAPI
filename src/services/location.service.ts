@@ -1,4 +1,4 @@
-import { LocationDTO } from "../DTO/location.dto";
+import { LocationDTO } from "../../types/DTO/location.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Location } from "../models/location"
 import { IService } from "./core/service.interface";

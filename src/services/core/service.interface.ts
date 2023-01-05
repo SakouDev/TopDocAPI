@@ -6,8 +6,8 @@ export interface IService<T> {
     update(t: T, id: number): Promise<boolean | number>;
 }
 
-export interface IAuthService<T,D> {
+export interface IAuthService<T> {
     login(t: T): Promise<T>;
-    register(t: T): Promise<T>;
-    refreshToken(t: D): Promise<D>;
+    logout(t: T): Promise<T>;
+    verifToken(t: T): Promise<T>;
 }

@@ -1,6 +1,6 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { RdvDTO } from '../DTO/rdv.dto';
+import { RdvDTO } from '../../types/DTO/rdv.dto';
 import bcrypt from 'bcrypt';
 
 

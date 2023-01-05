@@ -1,4 +1,4 @@
-import { BannedDTO } from "../DTO/banned.dto";
+import { BannedDTO } from "../../types/DTO/banned.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Banned } from "../models/banned"
 import { IService } from "./core/service.interface";

@@ -1,4 +1,4 @@
-import { TokenDTO } from "../DTO/token.dto";
+import { TokenDTO } from "../../types/DTO/token.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Token } from "../models/token"
 import { IService } from "./core/service.interface";

@@ -1,5 +1,5 @@
 import { Holiday } from "../models/holiday";
-import { HolidayDTO } from "../DTO/holiday.dto";
+import { HolidayDTO } from "../../types/DTO/holiday.dto";
 import { HolidayMapper } from "../mapper/holiday.mapper";
 import { IRepository } from "./core/repository.interface";
 

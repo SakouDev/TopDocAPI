@@ -1,5 +1,5 @@
 import { Hours } from "../models/hours";
-import { HoursDTO } from "../DTO/hours.dto";
+import { HoursDTO } from "../../types/DTO/hours.dto";
 import { HoursMapper } from "../mapper/hours.mapper";
 import { IRepository } from "./core/repository.interface";
 

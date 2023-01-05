@@ -1,4 +1,4 @@
-import { PlanningDTO } from "../DTO/planning.dto";
+import { PlanningDTO } from "../../types/DTO/planning.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Planning } from "../models/planning"
 import { IService } from "./core/service.interface";

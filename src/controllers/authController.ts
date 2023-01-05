@@ -1,3 +1,4 @@
+import { token } from './../database/mocks/mock-tokens';
 import { User_Token } from './../models/user_token';
 import { User } from "../models/user";
 import bcrypt from 'bcrypt';
@@ -31,7 +32,7 @@ export const authController = Router();
  *         in: body
  *         required: true
  *         type: object
- *         default: { "mail" : "Menfou@gmail.com", "password" : "12344" }
+ *         default: { "mail" : "Menfou@Aled.com", "password" : "12344" }
  *      responses:
  *        200:
  *          description: Logged.
@@ -64,20 +65,28 @@ authController.post('/', async ( req: any, res: any ) => {
 
             User_Token.findAll( {where : {UserId : data.id},order: [['updatedAt', 'DESC']]
         } ).then((ValidToken: any) => {
-                if ( ValidToken.lenght < 3 ) {
+                if ( ValidToken.length < 3 ) {
                     Token.create({
+                        userId: data.id,
                         refreshToken: RefreshToken
+                    }).then( async (token:any) => {
+                        await token.addUser(data, { through: { User_Token } })
                     })
+                    console.log("Token Created")
                 } else {
-                    Token.update({
-                        refreshToken: RefreshToken
-                    }, {
+                    Token.destroy({
                         where: {
-                            updatedAt : ValidToken[0].updatedAt
+                            id : ValidToken[2].TokenId
                         }
                     })
-                    return res.status(200).json({ "accessToken": AccessToken, "refreshToken": RefreshToken })
+                    Token.create({
+                        userId: data.id,
+                        refreshToken: RefreshToken
+                    }).then( async (token:any) => {
+                        await token.addUser(data, { through: { User_Token } })
+                    })
                 }
+                return res.status(200).json({ "accessToken": AccessToken, "refreshToken": RefreshToken })
             })
 
         } else {

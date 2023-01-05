@@ -1,5 +1,5 @@
 import { Location } from "../models/location";
-import { LocationDTO } from "../DTO/location.dto";
+import { LocationDTO } from "../../types/DTO/location.dto";
 import { LocationMapper } from "../mapper/location.mapper";
 import { IRepository } from "./core/repository.interface";
 

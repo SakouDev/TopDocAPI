@@ -1,4 +1,4 @@
-import { HoursDTO } from "../DTO/hours.dto";
+import { HoursDTO } from "../../types/DTO/hours.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Hours } from "../models/hours"
 import { IService } from "./core/service.interface";

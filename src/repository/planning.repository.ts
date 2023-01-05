@@ -1,5 +1,5 @@
 import { Planning } from "../models/planning";
-import { PlanningDTO } from "../DTO/planning.dto";
+import { PlanningDTO } from "../../types/DTO/planning.dto";
 import { PlanningMapper } from "../mapper/planning.mapper";
 import { IRepository } from "./core/repository.interface";
 

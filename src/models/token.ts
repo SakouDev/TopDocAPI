@@ -14,8 +14,9 @@ const concatRequiredMessage = (data: string) => {
 }
 
 Token.init({
-    userId: {
+    id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
     },
     refreshToken: {
@@ -29,5 +30,4 @@ Token.init({
 },
     {
         sequelize,
-        timestamps: false
     })

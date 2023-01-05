@@ -62,7 +62,6 @@ const initDb = () => {
 
         token.map((token) => {
             Token.create({
-                userId: token.userId,
                 refreshToken: token.refreshToken
             }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
         })
