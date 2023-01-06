@@ -1,22 +1,22 @@
 import { Token } from "../models/token";
-import { TokenDTO } from "../../types/DTO/token.dto";
 import { TokenMapper } from "../mapper/token.mapper";
 import { IRepository } from "./core/repository.interface";
 
-export class TokenRepository implements IRepository<TokenDTO> {
-    async findById(id: number): Promise<TokenDTO | null> {
+export class TokenRepository implements IRepository<Partial<Token>> {
+    
+    async findById(id: number): Promise<Partial<Token> | null> {
         return Token.findByPk(id).then((data: Token | null) => {
             return TokenMapper.MapToDTO(data)
         })
     }
-    async findAll(): Promise<Array<TokenDTO>> {
+    async findAll(): Promise<Array<Partial<Token>>> {
         return Token.findAll().then((data: Array<Token>) => {
             return data.map((token: Token) => {
                 return TokenMapper.MapToDTO(token)
             })
         })
     }
-    async create(body: Partial<Token>): Promise<TokenDTO> {
+    async create(body: Partial<Token>): Promise<Partial<Token>> {
         return Token.create(body).then((data: Token) => {
             return TokenMapper.MapToDTO(data)
         })

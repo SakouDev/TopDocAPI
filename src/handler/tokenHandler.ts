@@ -1,14 +1,14 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { TokenDTO } from '../../types/DTO/token.dto';
 import bcrypt from 'bcrypt';
+import { Token } from '../models/token';
 
 
 export class TokenHandler {
 
-    private tokenService : IService<TokenDTO>
+    private tokenService : IService<Partial<Token>>
 
-    constructor(tokenService: IService<TokenDTO>) {
+    constructor(tokenService: IService<Partial<Token>>) {
         this.tokenService = tokenService;
     }
 

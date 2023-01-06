@@ -3,23 +3,23 @@ import { IRepository } from "../repository/core/repository.interface";
 import { Token } from "../models/token"
 import { IService } from "./core/service.interface";
 
-export class TokenService implements IService<TokenDTO> {
+export class TokenService implements IService<Partial<Token>> {
 
-    private tokenRepository: IRepository<TokenDTO>
+    private tokenRepository: IRepository<Partial<Token>>
 
-    constructor(tokenRepository: IRepository<TokenDTO>) {
+    constructor(tokenRepository: IRepository<Partial<Token>>) {
         this.tokenRepository = tokenRepository
     }
 
-    async findAll(): Promise<Array<TokenDTO> | null> {
+    async findAll(): Promise<Array<Partial<Token>> | null> {
         return this.tokenRepository.findAll()
     }
 
-    async findById(id: number): Promise<TokenDTO | null> {
+    async findById(id: number): Promise<Partial<Token> | null> {
         return this.tokenRepository.findById(id)
     }
 
-    async create(token: Token): Promise<TokenDTO> {
+    async create(token: Token): Promise<Partial<Token>> {
         return this.tokenRepository.create(token)
     }
 
