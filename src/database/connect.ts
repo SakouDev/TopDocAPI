@@ -1,5 +1,6 @@
-
+///////////
 // MOCKS //
+///////////
 
 import { user } from './mocks/mock-user'
 import { token } from './mocks/mock-tokens'
@@ -12,7 +13,9 @@ import { banneds } from './mocks/mock-banned'
 import { hours } from './mocks/mock-hours'
 import { timeslots } from './mocks/mock-timeslot'
 
+////////////
 // MODELS //
+////////////
 
 import { User } from '../models/user'
 import { Token } from '../models/token'
@@ -25,40 +28,66 @@ import { Banned } from '../models/banned'
 import { Hours } from '../models/hours'
 import { Timeslot } from '../models/timeslot'
 
-
-
+/////////////////////
 // SEQUELIZE LOGIN //
+/////////////////////
 
 import sequelize from './sequelize'
 sequelize.authenticate()
-.then(() => console.log('Successfully connected to database.'))
-.catch((error: Error) => console.error(`Could not connect to database: ${error}`)
-)
+    .then(() => console.log('Successfully connected to database.'))
+    .catch((error: Error) => console.error(`Could not connect to database: ${error}`)
+    )
 
+//////////////////
 // ASSOCIATIONS //
+//////////////////
 
-User.hasOne(Rdv, { foreignKey: 'userId' })
-Rdv.belongsTo(User, { foreignKey: 'userId' })
-
-User.hasOne(Banned, { foreignKey: 'userId' })
-Banned.belongsTo(User, { foreignKey: 'userId' })
-
-User.hasMany(Token, { foreignKey : 'userId' })
-Token.belongsTo(User, { foreignKey : 'userId' })
-
-User.belongsToMany(Activity, { through: 'User_Activity' })
+// --- Activity
+Activity.hasMany(Rdv, { foreignKey: 'activityId' })
+Activity.hasMany(Holiday, { foreignKey: 'activityId' })
+Activity.belongsTo(Location, { foreignKey: 'locationId' })
+Activity.hasOne(Planning, { foreignKey: 'activityId' })
 Activity.belongsToMany(User, { through: 'User_Activity' })
 
-Holiday.belongsToMany(Activity, { through: 'Activity_Holiday' })
-Activity.belongsToMany(Holiday, { through: 'Activity_Holiday' })
+// --- Banned
+Banned.belongsTo(User, { foreignKey: 'userId' })
 
-User.belongsToMany(Rdv, { through: 'User_Rdv' })
-Rdv.belongsToMany(User, { through: 'User_Rdv' })
+// --- Holiday
+Holiday.belongsTo(Activity, { foreignKey: 'activityId' })
+
+// --- Hours
+Hours.belongsTo(Planning, { foreignKey: 'planningId' })
+
+// --- Location
+Location.hasOne(User, { foreignKey: 'locationId' })
+Location.hasOne(Activity, { foreignKey: 'locationId' })
+
+// --- Planning
+Planning.hasMany(Hours, { foreignKey: 'planningId' })
+Planning.belongsTo(Activity, { foreignKey: 'activityId' })
+
+// --- Rdv
+Rdv.belongsTo(User, { foreignKey: 'userId' })
+Rdv.belongsTo(Activity, { foreignKey: 'activityId' })
+
+// --- Token
+Token.belongsTo(User, { foreignKey: 'userId' })
+
+// --- User
+User.hasMany(Rdv, { foreignKey: 'userId' })
+User.hasMany(Token, { foreignKey: 'userId' })
+User.hasOne(Banned, { foreignKey: 'userId' })
+User.belongsTo(Location, { foreignKey: 'locationId' })
+User.belongsToMany(Activity, { through: 'User_Activity' })
+
+/////////////
+// INIT DB //
+/////////////
 
 const initDb = () => {
 
     return sequelize.sync({ force: true }).then(() => {
-        
+
         user.map((user, index) => {
             User.create({
                 firstname: user.firstname,
@@ -76,13 +105,14 @@ const initDb = () => {
                     await req.addActivity(activityRow, { through: 'User_Activity' })
                 })
         })
+
         token.map((token) => {
             Token.create({
-                userId : token.userId,
+                userId: token.userId,
                 refreshToken: token.refreshToken
             }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
         })
-        
+
         holiday.map((holiday, index: number) => {
             Holiday.create({
                 startDate: holiday.startDate,
@@ -148,7 +178,6 @@ const initDb = () => {
                 endHour: timeslot.endHour
             })
         })
-
 
         console.log('Database successfully initialized.')
 
