@@ -26,7 +26,6 @@ import { Hours } from '../models/hours'
 import { Timeslot } from '../models/timeslot'
 
 
-import { User_Token } from '../models/user_token'
 
 // SEQUELIZE LOGIN //
 
@@ -44,8 +43,8 @@ Rdv.belongsTo(User, { foreignKey: 'userId' })
 User.hasOne(Banned, { foreignKey: 'userId' })
 Banned.belongsTo(User, { foreignKey: 'userId' })
 
-User.belongsToMany(Token, { through: User_Token })
-Token.belongsToMany(User, { through: User_Token })
+User.hasMany(Token, { foreignKey : 'userId' })
+Token.belongsTo(User, { foreignKey : 'userId' })
 
 User.belongsToMany(Activity, { through: 'User_Activity' })
 Activity.belongsToMany(User, { through: 'User_Activity' })
@@ -59,13 +58,31 @@ Rdv.belongsToMany(User, { through: 'User_Rdv' })
 const initDb = () => {
 
     return sequelize.sync({ force: true }).then(() => {
-
+        
+        user.map((user, index) => {
+            User.create({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                birthdate: user.birthdate,
+                mail: user.mail,
+                genre: user.genre,
+                password: user.password,
+                phone: user.phone,
+                role: user.role
+            })
+                .then(async (req: any) => {
+                    console.log(req.toJSON())
+                    const activityRow = await Activity.findByPk(index + 1);
+                    await req.addActivity(activityRow, { through: 'User_Activity' })
+                })
+        })
         token.map((token) => {
             Token.create({
+                userId : token.userId,
                 refreshToken: token.refreshToken
             }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
         })
-
+        
         holiday.map((holiday, index: number) => {
             Holiday.create({
                 startDate: holiday.startDate,
@@ -132,24 +149,6 @@ const initDb = () => {
             })
         })
 
-        user.map((user, index) => {
-            User.create({
-                firstname: user.firstname,
-                lastname: user.lastname,
-                birthdate: user.birthdate,
-                mail: user.mail,
-                genre: user.genre,
-                password: user.password,
-                phone: user.phone,
-                role: user.role,
-                token: user.token
-            })
-                .then(async (req: any) => {
-                    console.log(req.toJSON())
-                    const activityRow = await Activity.findByPk(index + 1);
-                    await req.addActivity(activityRow, { through: 'User_Activity' })
-                })
-        })
 
         console.log('Database successfully initialized.')
 

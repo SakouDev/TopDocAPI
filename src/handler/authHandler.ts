@@ -16,7 +16,7 @@ export class AuthHandler {
     login = async (req: Request, res: Response) => {
         try {
             const { mail, password } = req.body;
-            const result = await this.authService.login(req.body);
+            const result = await this.authService.login({mail, password});
             if (!result) return res.status(404).json({ message: "User not found" });
             res.status(200).json(result);
         } catch (error:any) {

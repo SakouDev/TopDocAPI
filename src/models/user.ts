@@ -70,6 +70,7 @@ User.init({
     mail: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
             // notNull: { msg: concatRequiredMessage('Prénom') },
             notEmpty: { msg: concatRequiredMessage('Prénom') }
@@ -89,15 +90,7 @@ User.init({
             // notNull: { msg: concatRequiredMessage('Prénom') },
             notEmpty: { msg: concatRequiredMessage('Prénom') }
         }
-    },
-    token: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-            // notNull: { msg: concatRequiredMessage('Prénom') },
-            notEmpty: { msg: concatRequiredMessage('Prénom') }
-        }
-    },
+    }
 },
     {
         sequelize,

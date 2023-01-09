@@ -5,24 +5,25 @@ import { IServiceAuth } from "./core/service.interface";
 import { User } from '../models/user';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { User_Token } from '../models/user_token';
+// import { User_Token } from '../models/user_token';
 
 export class AuthService implements IServiceAuth<Auth, Token> {
 
     private tokenRepository: IRepositoryToken<Partial<Token>>
-    private userRepository: IRepositoryMail<User>
+    private mailRepository: IRepositoryMail<User>
 
-    constructor(tokenRepository: IRepositoryToken<Partial<Token>>, userRepository: IRepositoryMail<User>) {
+    constructor(tokenRepository: IRepositoryToken<Partial<Token>>, mailRepository: IRepositoryMail<User>) {
         this.tokenRepository = tokenRepository
-        this.userRepository = userRepository
+        this.mailRepository = mailRepository
     }
 
     async login(logs: Auth): Promise<any> {
 
         try {
-            
-            const user = await this.userRepository.findByMail(logs.mail)
-            if (!user) return
+            const user = await this.mailRepository.findByMail(logs.mail)
+            if (!user) {
+                return
+            }
 
             if (!await bcrypt.compare(logs.password, user.password) ) {
                 throw new Error("Password incorrect")
@@ -35,37 +36,31 @@ export class AuthService implements IServiceAuth<Auth, Token> {
                 expiresIn: 10
             })
 
-            User_Token.findAll( {where : {UserId : user.id},order: [['updatedAt', 'DESC']]} )
-            .then((ValidToken: any) => {
-                if ( ValidToken.length < 3 ) {
-                    Token.create({
-                        userId: user.id,
-                        refreshToken: RefreshToken
-                    }).then( async (token:any) => {
-                        await token.addUser(user, { through: { User_Token } })
-                    })
-                    console.log("Token Created")
-                } else {
-                    Token.destroy({
-                        where: {
-                            id : ValidToken[2].TokenId
-                        }
-                    })
-                    Token.create({
-                        userId: user.id,
-                        refreshToken: RefreshToken
-                    }).then( async (token:any) => {
-                        await token.addUser(user, { through: { User_Token } })
-                    })
-                }
-                // return res.status(200).json({ "accessToken": AccessToken, "refreshToken": RefreshToken })
-            })
+            
+            const userPropre = user.get({ plain: true })
+            // console.log(user.get({ plain: true }).Tokens.length)
+            const ValidToken = user.get({ plain: true }).Tokens
+            console.log(user.id)
+            if ( ValidToken.length < 3 ) {
+                Token.create({
+                    userId: user.id,
+                    refreshToken: RefreshToken
+                })
+                console.log("Token Created")
+            } else {
+                Token.destroy({
+                    where: {
+                        id : ValidToken[0].id
+                    }
+                })
+                Token.create({
+                    userId: user.id,
+                    refreshToken: RefreshToken
+                })
+            } 
             return { AccessToken, RefreshToken }
-            
-    
-
-        } catch (error) {
-            
+        } catch (error:any) {
+            throw new Error(error.message)
         }
 
         
