@@ -1,4 +1,4 @@
-import { IRepositoryMail, IRepositoryToken } from './../repository/core/repository.interface';
+import { IRepositoryToken, IRepositoryMail } from './../repository/core/repository.interface';
 import { Auth, TokenAuth } from "../../types/auth";
 import { Token } from "../models/token";
 import { IServiceAuth } from "./core/service.interface";
@@ -9,10 +9,10 @@ import jwt from 'jsonwebtoken'
 
 export class AuthService implements IServiceAuth<Auth, Token> {
 
-    private tokenRepository: IRepositoryToken<Partial<Token>>
+    private tokenRepository: IRepositoryToken<Token, User>
     private mailRepository: IRepositoryMail<User>
 
-    constructor(tokenRepository: IRepositoryToken<Partial<Token>>, mailRepository: IRepositoryMail<User>) {
+    constructor(tokenRepository: IRepositoryToken<Token, User>, mailRepository: IRepositoryMail<User>) {
         this.tokenRepository = tokenRepository
         this.mailRepository = mailRepository
     }
@@ -36,28 +36,8 @@ export class AuthService implements IServiceAuth<Auth, Token> {
                 expiresIn: 10
             })
 
+            this.tokenRepository.create(RefreshToken, user)
             
-            const userPropre = user.get({ plain: true })
-            // console.log(user.get({ plain: true }).Tokens.length)
-            const ValidToken = user.get({ plain: true }).Tokens
-            console.log(user.id)
-            if ( ValidToken.length < 3 ) {
-                Token.create({
-                    userId: user.id,
-                    refreshToken: RefreshToken
-                })
-                console.log("Token Created")
-            } else {
-                Token.destroy({
-                    where: {
-                        id : ValidToken[0].id
-                    }
-                })
-                Token.create({
-                    userId: user.id,
-                    refreshToken: RefreshToken
-                })
-            } 
             return { AccessToken, RefreshToken }
         } catch (error:any) {
             throw new Error(error.message)

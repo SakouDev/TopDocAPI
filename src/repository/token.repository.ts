@@ -1,35 +1,40 @@
-import { Token } from "../models/token";
-import { TokenMapper } from "../mapper/token.mapper";
-import { IRepository } from "./core/repository.interface";
+import { TokenMapper } from '../mapper/token.mapper';
+import { UserMapper } from '../mapper/user.mapper';
+import { Token } from '../models/token';
+import { User } from '../models/user';
+import { IRepositoryToken } from './core/repository.interface';
 
-export class TokenRepository implements IRepository<Partial<Token>> {
-    
-    async findById(id: number): Promise<Partial<Token> | null> {
-        return Token.findByPk(id).then((data: Token | null) => {
-            return TokenMapper.MapToDTO(data)
-        })
+
+export class TokenRepository implements IRepositoryToken<Token, User> {
+    findAll(): Promise<Token[] | null> {
+        throw new Error('Method not implemented.');
     }
-    async findAll(): Promise<Array<Partial<Token>>> {
-        return Token.findAll().then((data: Array<Token>) => {
-            return data.map((token: Token) => {
-                return TokenMapper.MapToDTO(token)
+
+    async create(token: string, user: User): Promise<Token> {
+        const ValidToken = user.get({ plain: true }).Tokens
+
+        if ( ValidToken.length < 3 ) {
+            
+            return Token.create({
+                userId: user.id,
+                refreshToken: token
             })
-        })
+        } else {
+            Token.destroy({
+                where: {
+                    id : ValidToken[0].id
+                }
+            })
+            return Token.create({
+                userId: user.id,
+                refreshToken: token
+            })
+        } 
     }
-    async create(body: Partial<Token>): Promise<Partial<Token>> {
-        return Token.create(body).then((data: Token) => {
-            return TokenMapper.MapToDTO(data)
-        })
+
+    delete(id: number): Promise<number | boolean> {
+        throw new Error('Method not implemented.');
     }
-    async delete(id: number): Promise<boolean | number> {
-        return Token.destroy({ where: { id: id } }).then((data: boolean | number) => {
-            return data
-        })
-    }
-    async update(body: Token, id: number): Promise<boolean | number> {
-        return Token.update(body, { where: { id: id } }).then((data: Array<(boolean | number)>) => {
-            return data[0]
-        })
-    }
+
 
 }

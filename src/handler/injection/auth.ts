@@ -1,5 +1,5 @@
+import { TokenRepository } from './../../repository/token.repository';
 import { MailRepository } from './../../repository/mailAuth.repository';
-import { TokenRepository } from '../../repository/token.repository';
 import { AuthService } from '../../services/auth.service';
 import { AuthHandler } from '../authHandler';
 
