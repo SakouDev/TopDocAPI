@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class RdvHandler {
 
-    private rdvService : IService<RdvDTO>
+    private rdvService: IService<RdvDTO>
 
     constructor(rdvService: IService<RdvDTO>) {
         this.rdvService = rdvService;

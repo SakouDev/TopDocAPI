@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class BannedHandler {
 
-    private bannedService : IService<BannedDTO>
+    private bannedService: IService<BannedDTO>
 
     constructor(bannedService: IService<BannedDTO>) {
         this.bannedService = bannedService;

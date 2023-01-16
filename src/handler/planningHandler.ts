@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class PlanningHandler {
 
-    private planningService : IService<PlanningDTO>
+    private planningService: IService<PlanningDTO>
 
     constructor(planningService: IService<PlanningDTO>) {
         this.planningService = planningService;

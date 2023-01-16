@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class LocationHandler {
 
-    private locationService : IService<LocationDTO>
+    private locationService: IService<LocationDTO>
 
     constructor(locationService: IService<LocationDTO>) {
         this.locationService = locationService;

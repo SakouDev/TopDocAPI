@@ -3,11 +3,9 @@ import { Request, Response } from "express";
 import { ActivityDTO } from '../../types/DTO/activity.dto';
 import bcrypt from 'bcrypt';
 
-
-
 export class ActivityHandler {
 
-    private activityService : IService<ActivityDTO>
+    private activityService: IService<ActivityDTO>
 
     constructor(activityService: IService<ActivityDTO>) {
         this.activityService = activityService;

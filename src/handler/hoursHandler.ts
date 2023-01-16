@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class HoursHandler {
 
-    private hoursService : IService<HoursDTO>
+    private hoursService: IService<HoursDTO>
 
     constructor(hoursService: IService<HoursDTO>) {
         this.hoursService = hoursService;

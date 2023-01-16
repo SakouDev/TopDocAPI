@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class TimeslotHandler {
 
-    private timeslotService : IService<TimeslotDTO>
+    private timeslotService: IService<TimeslotDTO>
 
     constructor(timeslotService: IService<TimeslotDTO>) {
         this.timeslotService = timeslotService;

@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import cors from 'cors'
-import express, { application } from "express"
+import express from "express"
 import morgan from 'morgan'
 import fs from 'fs'
 import path from 'path'

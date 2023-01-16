@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export class UserHandler {
 
-    private userService : IService<UserDTO>
+    private userService: IService<UserDTO>
 
     constructor(userService: IService<UserDTO>) {
         this.userService = userService;

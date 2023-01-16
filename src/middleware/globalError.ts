@@ -6,7 +6,7 @@ export function errorHandler(
     req: Request,
     res: Response,
     next: NextFunction
-    ) {
+) {
     const status = error.status || 500;
     const message = error.message || 'Une erreur est survenue, veuillez réessayer plus tard.';
     res.status(status).json({
