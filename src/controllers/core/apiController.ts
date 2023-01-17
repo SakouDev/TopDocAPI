@@ -7,7 +7,6 @@ import { locationController } from "../locationController";
 import { planningController } from "../planningController";
 import { activityController } from "../activityController";
 import { hoursController } from "../hoursController";
-import { timeslotController } from '../timeslotController';
 import { bannedController } from "../bannedController";
 
 import { port } from "../../../server";
@@ -57,7 +56,6 @@ apiController.use('/rdv', rdvController)
 apiController.use('/location', locationController)
 apiController.use('/planning', planningController)
 apiController.use('/activity', activityController)
-apiController.use('/timeslot', timeslotController)
 apiController.use('/banned', bannedController)
 apiController.use('/auth', authController)
     

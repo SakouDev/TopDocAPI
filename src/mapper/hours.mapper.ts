@@ -9,6 +9,7 @@ export class HoursMapper {
         const DTO: HoursDTO = {
             today: hours.today,
             startHour: hours.startHour,
+            endHour: hours.endHour,
             duration: hours.duration
         }
         console.log("DTO", DTO)

@@ -4,6 +4,8 @@ export interface HoursDTO {
 
     startHour: Date
 
+    endHour: Date
+
     duration: number
 
 }

@@ -1,29 +1,29 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { TimeslotDTO } from '../../types/DTO/timeslot.dto';
+import { PlanningDTO } from '../../types/DTO/planning.dto';
 import bcrypt from 'bcrypt';
 
 
-export class TimeslotHandler {
+export class PlanningHandler {
 
-    private timeslotService: IService<TimeslotDTO>
+    private planningService: IService<PlanningDTO>
 
-    constructor(timeslotService: IService<TimeslotDTO>) {
-        this.timeslotService = timeslotService;
+    constructor(planningService: IService<PlanningDTO>) {
+        this.planningService = planningService;
     }
 
-    getAllTimeslot = async (req: Request, res: Response) => {
+    getAllPlanning = async (req: Request, res: Response) => {
         try {
-            const result = await this.timeslotService.findAll()
+            const result = await this.planningService.findAll()
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);
         }
     }
 
-    getTimeslotById = async (req: Request, res: Response) => {
+    getPlanningById = async (req: Request, res: Response) => {
         try {
-            const result = await this.timeslotService.findById(parseInt(req.params.id))
+            const result = await this.planningService.findById(parseInt(req.params.id))
             if (result === null) {
                 return res.status(404).send()
             }
@@ -33,32 +33,32 @@ export class TimeslotHandler {
         }
     };
 
-    createTimeslot = async (req: Request, res: Response) => {
+    createPlanning = async (req: Request, res: Response) => {
         try {
             req.body.password = await bcrypt.hash(req.body.password, 10);
-            const result = await this.timeslotService.create(req.body)
+            const result = await this.planningService.create(req.body)
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);
         }
     };
 
-    deleteTimeslot = async (req: Request, res: Response) => {
+    deletePlanning = async (req: Request, res: Response) => {
         try {
-            const result = await this.timeslotService.delete(parseInt(req.params.id))
+            const result = await this.planningService.delete(parseInt(req.params.id))
             return res.status(200).json(result ? "Supprimé" : "Non Supprimé");
         } catch (error) {
             return res.status(500).json(error);
         }
     };
 
-    updateTimeslot = async (req: Request, res: Response) => {
+    updatePlanning = async (req: Request, res: Response) => {
         try {
             if (req.body.password) {
                 let hashedPassword = await bcrypt.hash(req.body.password, 10);
                 req.body = { ...req.body, password: hashedPassword }
             }
-            const result = await this.timeslotService.update(req.body, parseInt(req.params.id))
+            const result = await this.planningService.update(req.body, parseInt(req.params.id))
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);

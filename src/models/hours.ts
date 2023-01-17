@@ -7,6 +7,8 @@ export class Hours extends Model {
 
     startHour!: Date
 
+    endHour!: Date
+
     duration!: number
 
 }
@@ -30,6 +32,14 @@ Hours.init({
         }
     },
     startHour: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('reason') },
+            notEmpty: { msg: concatRequiredMessage('reason') }
+        }
+    },
+    endHour: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {

@@ -11,7 +11,6 @@ import { plannings } from './mocks/mock-planning'
 import { activities } from './mocks/mock-activity'
 import { banneds } from './mocks/mock-banned'
 import { hours } from './mocks/mock-hours'
-import { timeslots } from './mocks/mock-timeslot'
 
 ////////////
 // MODELS //
@@ -26,7 +25,6 @@ import { Planning } from '../models/planning'
 import { Activity } from '../models/activity'
 import { Banned } from '../models/banned'
 import { Hours } from '../models/hours'
-import { Timeslot } from '../models/timeslot'
 
 /////////////////////
 // SEQUELIZE LOGIN //
@@ -46,7 +44,7 @@ sequelize.authenticate()
 Activity.hasMany(Rdv, { foreignKey: 'activityId' })
 Activity.hasMany(Holiday, { foreignKey: 'activityId' })
 Activity.belongsTo(Location, { foreignKey: 'locationId' })
-Activity.hasOne(Planning, { foreignKey: 'activityId' })
+// Activity.hasOne(Planning, { foreignKey: 'activityId' })
 Activity.belongsToMany(User, { through: 'User_Activity' })
 
 // --- Banned
@@ -64,7 +62,7 @@ Location.hasOne(Activity, { foreignKey: 'locationId' })
 
 // --- Planning
 Planning.hasMany(Hours, { foreignKey: 'planningId' })
-Planning.belongsTo(Activity, { foreignKey: 'activityId' })
+// Planning.belongsTo(Activity, { foreignKey: 'activityId' })
 
 // --- Rdv
 Rdv.belongsTo(User, { foreignKey: 'userId' })
@@ -167,15 +165,8 @@ const initDb = () => {
             Hours.create({
                 today: hours.today,
                 startHour: hours.startHour,
+                endHour: hours.endHour,
                 duration: hours.duration
-            })
-        })
-
-        timeslots.map((timeslot, index: number) => {
-            Timeslot.create({
-                weekday: timeslot.weekday,
-                startHour: timeslot.startHour,
-                endHour: timeslot.endHour
             })
         })
 
