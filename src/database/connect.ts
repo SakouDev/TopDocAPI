@@ -44,7 +44,7 @@ sequelize.authenticate()
 Activity.hasMany(Rdv, { foreignKey: 'activityId' })
 Activity.hasMany(Holiday, { foreignKey: 'activityId' })
 Activity.belongsTo(Location, { foreignKey: 'locationId' })
-// Activity.hasOne(Planning, { foreignKey: 'activityId' })
+Activity.hasOne(Planning, { foreignKey: 'activityId' })
 Activity.belongsToMany(User, { through: 'User_Activity' })
 
 // --- Banned
@@ -62,7 +62,7 @@ Location.hasOne(Activity, { foreignKey: 'locationId' })
 
 // --- Planning
 Planning.hasMany(Hours, { foreignKey: 'planningId' })
-// Planning.belongsTo(Activity, { foreignKey: 'activityId' })
+Planning.belongsTo(Activity, { foreignKey: 'activityId' })
 
 // --- Rdv
 Rdv.belongsTo(User, { foreignKey: 'userId' })

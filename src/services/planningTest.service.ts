@@ -17,26 +17,35 @@ export class PlanningTestService implements IService<PlanningDTO> {
 
     async findById(id: number): Promise<PlanningDTO | null> {
         const data : any = await this.planningRepository.findById(id)
-        
-        const minutes = (data.Hours[0].endHour.getTime() - data.Hours[0].startHour.getTime()) / (1000 * 60)
-        const nbCreneaux = Math.floor(minutes / data.Hours[0].duration)
 
-        const CreneauxList = []
+        // Congés 
 
-        for (let i = 0; i < nbCreneaux; i++) {
+        const today = new Date()
 
-            const startHour = new Date(data.Hours[0].startHour.getTime() + ((data.Hours[0].duration * (1000 * 60)) * i)).toLocaleTimeString()
-            const endHour = new Date(data.Hours[0].startHour.getTime() + ((data.Hours[0].duration * (1000 * 60)) * (i + 1))).toLocaleTimeString()
-            
-            const newCreneau = {startHour: startHour, endHour: endHour}
-
-            CreneauxList.push(newCreneau)
-
+        if (today >= new Date(data.Holidays[0].startDate) && today <= new Date(data.Holidays[0].endDate)) {
+            console.log('IL EST EN CONGE')
+            const holiday = {date: today, holiday: true}
         }
+        else {
 
-        const selectedDate = {jour: data.Hours[0].today, creneaux: CreneauxList}
+            // Créneaux
+            
+            const minutesTotales = (data.Hours[0].endHour.getTime() - data.Hours[0].startHour.getTime()) / (1000 * 60)
+            const nbCreneaux = Math.floor(minutesTotales / data.Hours[0].duration)
+    
+            const CreneauxList = []
+    
+            for (let i = 0; i < nbCreneaux; i++) {
+                const startHour = new Date(data.Hours[0].startHour.getTime() + ((data.Hours[0].duration * (1000 * 60)) * i)).toLocaleTimeString()
+                const endHour = new Date(data.Hours[0].startHour.getTime() + ((data.Hours[0].duration * (1000 * 60)) * (i + 1))).toLocaleTimeString()
+                
+                const newCreneau = {startHour: startHour, endHour: endHour}
+    
+                CreneauxList.push(newCreneau)
+            }
 
-        console.log(selectedDate)
+            const selectedDate = {jour: data.Hours[0].today, creneaux: CreneauxList}
+        }
 
         return this.planningRepository.findById(id)
     }

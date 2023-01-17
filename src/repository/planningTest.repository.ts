@@ -3,11 +3,13 @@ import { PlanningDTO } from "../../types/DTO/planning.dto";
 import { PlanningMapper } from "../mapper/planning.mapper";
 import { IRepository } from "./core/repository.interface";
 import { Hours } from "../models/hours";
+import { Holiday } from "../models/holiday";
+import { Activity } from "../models/activity";
 
 export class PlanningTestRepository implements IRepository<PlanningDTO> {
     async findById(id: number): Promise<PlanningDTO | null> {
-        const PlanningFound = await Planning.findByPk(id).then((data: Planning | null) => {
-            return PlanningMapper.MapToDTO(data)
+        const PlanningFound : any = await Planning.findByPk(id).then((data: Planning | null) => {
+            return data
         })
         
         const HoursFound = await Hours.findAll({
@@ -16,7 +18,13 @@ export class PlanningTestRepository implements IRepository<PlanningDTO> {
             }
         })
 
-        const PlanningBrut = {Planning: PlanningFound, Hours: HoursFound}
+        const HolidaysFound = await Holiday.findAll({
+            where: {
+                activityId: PlanningFound.activityId
+            }
+        })
+
+        const PlanningBrut = {Planning: PlanningFound, Hours: HoursFound, Holidays: HolidaysFound}
         return PlanningBrut as any
     }
     async findAll(): Promise<Array<PlanningDTO>> {
