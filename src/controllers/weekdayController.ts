@@ -1,34 +1,34 @@
-import { hoursHandler } from "../handler/injection/hours";
+import { weekdayHandler } from "../handler/injection/weekday";
 
 const { Router } = require('express')
 
 
-export const hoursController = Router();
+export const weekdayController = Router();
 
 /**
  * @swagger
  * tags:
- *      name: Hours
- *      description: Manage hours
+ *      name: Weekday
+ *      description: Manage weekday
  */
 
 /**
  * @openapi
- * /api/hours:
+ * /api/weekday:
  *   get:
- *      tags: [Hours]
- *      description: Get the list of all hours.
+ *      tags: [Weekday]
+ *      description: Get the list of all weekday.
  *      responses:
  *        200:
- *          description: Get the list of all hours.
+ *          description: Get the list of all weekday.
  */
-hoursController.get('/', hoursHandler.getAllHours)
+weekdayController.get('/', weekdayHandler.getAllWeekday)
 
 /**
  * @openapi
- * /api/hours/{id}:
+ * /api/weekday/{id}:
  *  get:
- *      tags: [Hours]
+ *      tags: [Weekday]
  *      description: Get an template by id
  *      parameters:
  *       - name: id
@@ -38,18 +38,18 @@ hoursController.get('/', hoursHandler.getAllHours)
  *         default: 1
  *      responses:
  *        200:
- *          description: Get hours of given id.
+ *          description: Get weekday of given id.
  */
-hoursController.get('/:id'
-    // , authenticateHours
-    , hoursHandler.getHoursById)
+weekdayController.get('/:id'
+    // , authenticateWeekday
+    , weekdayHandler.getWeekdayById)
 
 /**
  * @openapi
- * /api/hours:
+ * /api/weekday:
  *  post:
- *      tags: [Hours]
- *      description: Add an hours
+ *      tags: [Weekday]
+ *      description: Add an weekday
  *      consumes:
  *       - application/json
  *      parameters:
@@ -60,16 +60,16 @@ hoursController.get('/:id'
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: create a new hours.
+ *          description: create a new weekday.
  */
-hoursController.post('/', hoursHandler.createHours)
+weekdayController.post('/', weekdayHandler.createWeekday)
 
 /**
  * @openapi
- * /api/hours/{id}:
+ * /api/weekday/{id}:
  *  put:
- *      tags: [Hours]
- *      description: update an hours
+ *      tags: [Weekday]
+ *      description: update an weekday
  *      consumes:
  *       - application/json
  *      parameters:
@@ -85,18 +85,18 @@ hoursController.post('/', hoursHandler.createHours)
  *         default: { "firstname": "Name1","lastname":"Name2","birthdate": "27/04/1999","mail": "Menfou@Aled.com","genre": "HelicoptereDeCombat", "password" : "12344", "phone" : "3630", "role" : "Admin" }
  *      responses:
  *        200:
- *          description: update hours of given id.
+ *          description: update weekday of given id.
  */
-hoursController.put('/:id',
-    // authenticateHours, authorization, 
-    hoursHandler.updateHours)
+weekdayController.put('/:id',
+    // authenticateWeekday, authorization, 
+    weekdayHandler.updateWeekday)
 
 /**
  * @openapi
- * /api/hours/{id}:
+ * /api/weekday/{id}:
  *  delete:
- *      tags: [Hours]
- *      description: delete an hours.
+ *      tags: [Weekday]
+ *      description: delete an weekday.
  *      parameters:
  *       - name: id
  *         in: path
@@ -104,8 +104,8 @@ hoursController.put('/:id',
  *         type: integer
  *      responses:
  *        200:
- *          description: delete an hours.
+ *          description: delete an weekday.
  */
-hoursController.delete('/:id',
-    // authenticateHours, authorization, 
-    hoursHandler.deleteHours)
+weekdayController.delete('/:id',
+    // authenticateWeekday, authorization, 
+    weekdayHandler.deleteWeekday)

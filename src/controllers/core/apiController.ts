@@ -6,7 +6,7 @@ import { rdvController } from "../rdvController";
 import { locationController } from "../locationController";
 import { planningController } from "../planningController";
 import { activityController } from "../activityController";
-import { hoursController } from "../hoursController";
+import { weekdayController } from "../weekdayController";
 import { bannedController } from "../bannedController";
 
 import { port } from "../../../server";
@@ -50,7 +50,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions)
 apiController.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 apiController.use('/user', userController)
-apiController.use('/hours', hoursController)
+apiController.use('/weekday', weekdayController)
 apiController.use('/holiday', holidayController)
 apiController.use('/rdv', rdvController)
 apiController.use('/location', locationController)
@@ -58,7 +58,7 @@ apiController.use('/planning', planningController)
 apiController.use('/activity', activityController)
 apiController.use('/banned', bannedController)
 apiController.use('/auth', authController)
-    
+
 
 
 export { apiController }

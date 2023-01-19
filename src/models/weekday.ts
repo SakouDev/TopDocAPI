@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize"
 import sequelize from '../database/sequelize'
 
-export class Hours extends Model {
+export class Weekday extends Model {
 
     today!: string
 
@@ -17,7 +17,7 @@ const concatRequiredMessage = (data: string) => {
     return `Le champ ${data} est requis`
 }
 
-Hours.init({
+Weekday.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

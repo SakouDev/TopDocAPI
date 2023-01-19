@@ -1,4 +1,4 @@
-import { planningHandler } from "../handler/injection/planningTest";
+import { planningHandler } from "../handler/injection/planning";
 
 const { Router } = require('express')
 

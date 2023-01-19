@@ -10,7 +10,7 @@ import { locations } from './mocks/mock-location'
 import { plannings } from './mocks/mock-planning'
 import { activities } from './mocks/mock-activity'
 import { banneds } from './mocks/mock-banned'
-import { hours } from './mocks/mock-hours'
+import { weekday } from './mocks/mock-weekday'
 
 ////////////
 // MODELS //
@@ -24,7 +24,7 @@ import { Location } from '../models/location'
 import { Planning } from '../models/planning'
 import { Activity } from '../models/activity'
 import { Banned } from '../models/banned'
-import { Hours } from '../models/hours'
+import { Weekday } from '../models/weekday'
 
 /////////////////////
 // SEQUELIZE LOGIN //
@@ -53,15 +53,15 @@ Banned.belongsTo(User, { foreignKey: 'userId' })
 // --- Holiday
 Holiday.belongsTo(Activity, { foreignKey: 'activityId' })
 
-// --- Hours
-Hours.belongsTo(Planning, { foreignKey: 'planningId' })
+// --- Weekday
+Weekday.belongsTo(Planning, { foreignKey: 'planningId' })
 
 // --- Location
 Location.hasOne(User, { foreignKey: 'locationId' })
 Location.hasOne(Activity, { foreignKey: 'locationId' })
 
 // --- Planning
-Planning.hasMany(Hours, { foreignKey: 'planningId' })
+Planning.hasMany(Weekday, { foreignKey: 'planningId' })
 Planning.belongsTo(Activity, { foreignKey: 'activityId' })
 
 // --- Rdv
@@ -161,12 +161,13 @@ const initDb = () => {
             })
         })
 
-        hours.map((hours, index: number) => {
-            Hours.create({
-                today: hours.today,
-                startHour: hours.startHour,
-                endHour: hours.endHour,
-                duration: hours.duration
+        weekday.map((weekday, index: number) => {
+            Weekday.create({
+                today: weekday.today,
+                startHour: weekday.startHour,
+                endHour: weekday.endHour,
+                duration: weekday.duration,
+                planningId: weekday.planningId
             })
         })
 

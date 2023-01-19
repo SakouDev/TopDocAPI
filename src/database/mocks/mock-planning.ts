@@ -1,7 +1,7 @@
 export const plannings = [
     {
-        name: "Semaine NOEL",
-        startDate: 19 / 12 / 2022,
+        name: "Semaine 3",
+        startDate: 15 / 1 / 2023,
         validityDuration: 7
     }
 ];
