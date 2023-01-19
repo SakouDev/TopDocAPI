@@ -151,7 +151,9 @@ const initDb = () => {
             Planning.create({
                 name: planning.name,
                 startDate: planning.startDate,
-                validityDuration: planning.validityDuration
+                validityDuration: planning.validityDuration,
+                rdvDuration: planning.rdvDuration,
+                activityId: planning.activityId
             })
         })
 
@@ -163,10 +165,9 @@ const initDb = () => {
 
         weekday.map((weekday, index: number) => {
             Weekday.create({
-                today: weekday.today,
+                weekday: weekday.weekday,
                 startHour: weekday.startHour,
                 endHour: weekday.endHour,
-                duration: weekday.duration,
                 planningId: weekday.planningId
             })
         })
@@ -182,5 +183,7 @@ module.exports = {
     Token,
     Activity,
     Holiday,
+    Planning,
+    Weekday,
     Rdv,
 }

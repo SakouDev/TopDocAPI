@@ -1,11 +1,9 @@
 export interface WeekdayDTO {
 
-    today: string
+    weekday: string
 
-    startHour: Date
+    startHour: string
 
-    endHour: Date
-
-    duration: number
+    endHour: string
 
 }

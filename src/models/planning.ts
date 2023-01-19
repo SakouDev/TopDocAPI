@@ -7,6 +7,8 @@ export class Planning extends Model {
 
     startDate!: Date
 
+    rdvDuration!: number
+
     validityDuration!: number
 
 }
@@ -25,24 +27,32 @@ Planning.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Availability') },
-            notEmpty: { msg: concatRequiredMessage('Availability') }
+            notNull: { msg: concatRequiredMessage('name') },
+            notEmpty: { msg: concatRequiredMessage('name') }
         }
     },
     startDate: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Availability') },
-            notEmpty: { msg: concatRequiredMessage('Availability') }
+            notNull: { msg: concatRequiredMessage('startDate') },
+            notEmpty: { msg: concatRequiredMessage('startDate') }
+        }
+    },
+    rdvDuration: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('rdvDuration') },
+            notEmpty: { msg: concatRequiredMessage('rdvDuration') }
         }
     },
     validityDuration: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Availability') },
-            notEmpty: { msg: concatRequiredMessage('Availability') }
+            notNull: { msg: concatRequiredMessage('validityDuration') },
+            notEmpty: { msg: concatRequiredMessage('validityDuration') }
         }
     }
 },

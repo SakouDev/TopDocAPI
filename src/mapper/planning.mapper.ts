@@ -9,7 +9,8 @@ export class PlanningMapper {
         const DTO: PlanningDTO = {
             name: planning.name,
             startDate: planning.startDate,
-            validityDuration: planning.validityDuration
+            rdvDuration: planning.rdvDuration,
+            validityDuration: planning.validityDuration,
         }
         console.log("DTO", DTO)
         return DTO

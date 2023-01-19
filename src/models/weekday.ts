@@ -3,13 +3,11 @@ import sequelize from '../database/sequelize'
 
 export class Weekday extends Model {
 
-    today!: string
+    weekday!: string
 
-    startHour!: Date
+    startHour!: string
 
-    endHour!: Date
-
-    duration!: number
+    endHour!: string
 
 }
 
@@ -23,36 +21,28 @@ Weekday.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    today: {
+    weekday: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('reason') },
-            notEmpty: { msg: concatRequiredMessage('reason') }
+            notNull: { msg: concatRequiredMessage('weekday') },
+            notEmpty: { msg: concatRequiredMessage('weekday') }
         }
     },
     startHour: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('reason') },
-            notEmpty: { msg: concatRequiredMessage('reason') }
+            notNull: { msg: concatRequiredMessage('startHour') },
+            notEmpty: { msg: concatRequiredMessage('startHour') }
         }
     },
     endHour: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('reason') },
-            notEmpty: { msg: concatRequiredMessage('reason') }
-        }
-    },
-    duration: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notNull: { msg: concatRequiredMessage('reason') },
-            notEmpty: { msg: concatRequiredMessage('reason') }
+            notNull: { msg: concatRequiredMessage('endHour') },
+            notEmpty: { msg: concatRequiredMessage('endHour') }
         }
     },
 },

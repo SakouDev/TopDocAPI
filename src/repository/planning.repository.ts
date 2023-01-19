@@ -4,7 +4,6 @@ import { PlanningMapper } from "../mapper/planning.mapper";
 import { IRepository } from "./core/repository.interface";
 import { Weekday } from "../models/weekday";
 import { Holiday } from "../models/holiday";
-import { Activity } from "../models/activity";
 
 export class PlanningRepository implements IRepository<PlanningDTO> {
     async findById(id: number): Promise<PlanningDTO | null> {
