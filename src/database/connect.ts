@@ -4,7 +4,6 @@
 
 import { user } from './mocks/mock-user'
 import { token } from './mocks/mock-tokens'
-import { holiday } from './mocks/mock-holiday'
 import { rdv } from './mocks/mock-rdv'
 import { locations } from './mocks/mock-location'
 import { plannings } from './mocks/mock-planning'
@@ -18,7 +17,6 @@ import { weekday } from './mocks/mock-weekday'
 
 import { User } from '../models/user'
 import { Token } from '../models/token'
-import { Holiday } from '../models/holiday'
 import { Rdv } from '../models/rdv'
 import { Location } from '../models/location'
 import { Planning } from '../models/planning'
@@ -42,17 +40,12 @@ sequelize.authenticate()
 
 // --- Activity
 Activity.hasMany(Rdv, { foreignKey: 'activityId' })
-Activity.hasMany(Holiday, { foreignKey: 'activityId' })
 Activity.belongsTo(Location, { foreignKey: 'locationId' })
 Activity.hasOne(Planning, { foreignKey: 'activityId' })
 Activity.belongsToMany(User, { through: 'User_Activity' })
 
 // --- Banned
 Banned.belongsTo(User, { foreignKey: 'userId' })
-
-// --- Holiday
-Holiday.belongsTo(Activity, { foreignKey: 'activityId' })
-
 // --- Weekday
 Weekday.belongsTo(Planning, { foreignKey: 'planningId' })
 
@@ -111,13 +104,6 @@ const initDb = () => {
             }).then((response: { toJSON: () => string }) => console.log(response.toJSON()))
         })
 
-        holiday.map((holiday, index: number) => {
-            Holiday.create({
-                startDate: holiday.startDate,
-                endDate: holiday.endDate
-            })
-        })
-
         activities.map((activity, index: number) => {
             Activity.create({
                 name: activity.name,
@@ -125,11 +111,6 @@ const initDb = () => {
                 nameCabinet: activity.nameCabinet,
                 isActive: activity.isActive
             })
-                .then(async (req: any) => {
-                    console.log(req.toJSON())
-                    const holidayRow = await Holiday.findByPk(index + 1);
-                    await req.addHoliday(holidayRow, { through: 'Activity_Holiday' })
-                })
         })
 
         rdv.map((rdv, index: number) => {
@@ -183,7 +164,6 @@ module.exports = {
     User,
     Token,
     Activity,
-    Holiday,
     Planning,
     Weekday,
     Rdv,

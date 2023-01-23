@@ -3,7 +3,6 @@ import { PlanningDTO } from "../../types/DTO/planning.dto";
 import { PlanningMapper } from "../mapper/planning.mapper";
 import { IRepository } from "./core/repository.interface";
 import { Weekday } from "../models/weekday";
-import { Holiday } from "../models/holiday";
 
 export class PlanningRepository implements IRepository<PlanningDTO> {
     async findById(id: number): Promise<PlanningDTO | null> {
@@ -17,13 +16,7 @@ export class PlanningRepository implements IRepository<PlanningDTO> {
             }
         })
 
-        const HolidaysFound = await Holiday.findAll({
-            where: {
-                activityId: PlanningFound.activityId
-            }
-        })
-
-        const PlanningBrut = { Planning: PlanningFound, Weekday: WeekdayFound, Holidays: HolidaysFound }
+        const PlanningBrut = { Planning: PlanningFound, Weekday: WeekdayFound }
         return PlanningBrut as any
     }
     async findAll(): Promise<Array<PlanningDTO>> {

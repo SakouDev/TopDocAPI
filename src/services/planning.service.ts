@@ -20,15 +20,15 @@ export class PlanningService implements IService<PlanningDTO> {
         const data: any = await this.planningRepository.findById(id)
 
         for (let i = 0; i < data.Weekday.length; i++) {
-            let startUnformattedData = data.Weekday[i].startHour.split(':')
-            let startHours = parseInt(startUnformattedData[0])
-            let startMinutes = parseInt(startUnformattedData[1])
+            const startUnformattedData = data.Weekday[i].startHour.split(':')
+            const startHours = parseInt(startUnformattedData[0])
+            const startMinutes = parseInt(startUnformattedData[1])
 
-            let endUnformattedData = data.Weekday[i].endHour.split(':')
-            let endHours = parseInt(endUnformattedData[0])
-            let endMinutes = parseInt(endUnformattedData[1])
+            const endUnformattedData = data.Weekday[i].endHour.split(':')
+            const endHours = parseInt(endUnformattedData[0])
+            const endMinutes = parseInt(endUnformattedData[1])
 
-            let start = dayjs().hour(startHours).minute(startMinutes)
+            const start = dayjs().hour(startHours).minute(startMinutes)
 
             const minutesTotales = (((endHours * 60) + endMinutes) - ((startHours * 60) + startMinutes))
             const creneauxDuration = data.Planning.rdvDuration

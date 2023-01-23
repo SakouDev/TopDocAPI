@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import { userController } from "../userController";
-import { holidayController } from "../holidayController";
 import { rdvController } from "../rdvController";
 import { locationController } from "../locationController";
 import { planningController } from "../planningController";
@@ -51,7 +50,6 @@ apiController.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 apiController.use('/user', userController)
 apiController.use('/weekday', weekdayController)
-apiController.use('/holiday', holidayController)
 apiController.use('/rdv', rdvController)
 apiController.use('/location', locationController)
 apiController.use('/planning', planningController)
