@@ -1,7 +1,7 @@
 export interface RdvDTO {
 
-    rdvDate: Date
+    rdvStartDate: Date
 
-    rdvDuration: number
+    rdvEndHour: string
 
 }

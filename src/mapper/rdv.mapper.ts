@@ -7,8 +7,8 @@ export class RdvMapper {
 
         if (rdv === null) return null as any
         const DTO: RdvDTO = {
-            rdvDate: rdv.rdvDate,
-            rdvDuration: rdv.rdvDuration
+            rdvStartDate: rdv.rdvStartDate,
+            rdvEndHour: rdv.rdvEndHour,
         }
         console.log("DTO", DTO)
         return DTO

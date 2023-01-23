@@ -109,14 +109,14 @@ const initDb = () => {
                 name: activity.name,
                 description: activity.description,
                 nameCabinet: activity.nameCabinet,
-                isActive: activity.isActive
+                isActive: activity.isActive,
             })
         })
 
         rdv.map((rdv, index: number) => {
             Rdv.create({
-                rdvDate: rdv.rdvDate,
-                rdvDuration: rdv.rdvDuration
+                rdvStartDate: rdv.rdvStartDate,
+                rdvEndHour: rdv.rdvEndHour
             })
         })
 
