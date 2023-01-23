@@ -7,7 +7,7 @@ export class WeekdayMapper {
 
         if (weekday === null) return null as any
         const DTO: WeekdayDTO = {
-            weekday: weekday.weekday,
+            date: weekday.date,
             startHour: weekday.startHour,
             endHour: weekday.endHour,
             breakStartHour: weekday.breakStartHour,

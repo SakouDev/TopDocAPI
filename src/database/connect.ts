@@ -115,8 +115,9 @@ const initDb = () => {
 
         rdv.map((rdv, index: number) => {
             Rdv.create({
-                rdvStartDate: rdv.rdvStartDate,
-                rdvEndHour: rdv.rdvEndHour
+                date: rdv.date,
+                startHour: rdv.startHour,
+                endHour: rdv.endHour
             })
         })
 
@@ -145,7 +146,7 @@ const initDb = () => {
 
         weekday.map((weekday, index: number) => {
             Weekday.create({
-                weekday: weekday.weekday,
+                date: weekday.date,
                 startHour: weekday.startHour,
                 endHour: weekday.endHour,
                 breakStartHour: weekday.breakStartHour,

@@ -1,6 +1,6 @@
 export const weekday = [
     {
-        weekday: "lundi",
+        date: new Date(),
         startHour: '08:00',
         endHour: '17:00',
         breakStartHour: '12:00',
@@ -8,7 +8,7 @@ export const weekday = [
         planningId: 1,
     },
     {
-        weekday: "mardi",
+        date: new Date('01/01/2020'),
         startHour: '08:00',
         endHour: '17:00',
         breakStartHour: '12:00',
@@ -16,13 +16,13 @@ export const weekday = [
         planningId: 1,
     },
     {
-        weekday: "mercredi",
+        date: new Date(),
         startHour: '08:00',
         endHour: '12:00',
         planningId: 1,
     },
     {
-        weekday: "jeudi",
+        date: new Date(),
         startHour: '08:00',
         endHour: '17:00',
         breakStartHour: '12:00',
@@ -30,7 +30,7 @@ export const weekday = [
         planningId: 1,
     },
     {
-        weekday: "vendredi",
+        date: new Date(),
         startHour: '08:00',
         endHour: '17:00',
         breakStartHour: '12:00',
@@ -38,7 +38,7 @@ export const weekday = [
         planningId: 1,
     },
     {
-        weekday: "samedi",
+        date: new Date(),
         startHour: '10:00',
         endHour: '16:00',
         breakStartHour: '12:00',
@@ -46,7 +46,7 @@ export const weekday = [
         planningId: 1,
     },
     {
-        weekday: "dimanche",
+        date: new Date(),
         startHour: '08:00',
         endHour: '12:00',
         planningId: 1,

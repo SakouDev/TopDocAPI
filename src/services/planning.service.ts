@@ -33,24 +33,36 @@ export class PlanningService implements IService<PlanningDTO> {
             const minutesTotales = (((endHours * 60) + endMinutes) - ((startHours * 60) + startMinutes))
             const creneauxDuration = data.Planning.rdvDuration
             const nbCreneaux = minutesTotales / creneauxDuration
-
+            
             const CreneauxList = []
             const PausesList = []
             const heureDebutPause = data.Weekday[i].breakStartHour
             const heureFinPause = data.Weekday[i].breakEndHour
-
+            
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
-                const newCreneau = { startHour: startHour, endHour: endHour, taken: false }
+                const date = data.Weekday[i].date
+                const newCreneau = { date: date, startHour: startHour, endHour: endHour, taken: false }
 
                 if (heureDebutPause <= startHour && heureFinPause > startHour) {
                     PausesList.push(newCreneau)
                 }
                 else {
+                    const result = data.Rdv.find(
+                        (rdvs: any) =>
+                            rdvs.startHour <= newCreneau.startHour && rdvs.endHour >= newCreneau.endHour
+                    );
+                    // console.log(result)
+                    if (result) {
+                        console.log("FOUND", result);
+                        newCreneau.taken = true;
+                    }
+
                     CreneauxList.push(newCreneau)
                 }
             }
+
 
             const selectedDate = { jour: data.Weekday[i].weekday, creneaux: CreneauxList, pauses: PausesList }
             console.log(selectedDate)

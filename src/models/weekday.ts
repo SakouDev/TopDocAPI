@@ -3,7 +3,7 @@ import sequelize from '../database/sequelize'
 
 export class Weekday extends Model {
 
-    weekday!: string
+    date!: string
 
     startHour!: string
 
@@ -25,7 +25,7 @@ Weekday.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    weekday: {
+    date: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {

@@ -3,9 +3,11 @@ import sequelize from '../database/sequelize'
 
 export class Rdv extends Model {
 
-    rdvStartDate!: Date
+    date!: Date
 
-    rdvEndHour!: string
+    startHour!: string
+
+    endHour!: string
 
 }
 
@@ -14,12 +16,25 @@ const concatRequiredMessage = (data: string) => {
 }
 
 Rdv.init({
-    rdvStartDate: {
+    date: {
         type: DataTypes.DATE,
         primaryKey: true,
     },
-    rdvEndHour: {
+    startHour: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('startHour') },
+            notEmpty: { msg: concatRequiredMessage('startHour') }
+        }
+    },
+    endHour: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('endHour') },
+            notEmpty: { msg: concatRequiredMessage('endHour') }
+        }
     }
 },
     {

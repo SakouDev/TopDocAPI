@@ -1,10 +1,7 @@
 export const rdv = [
     {
-        rdvStartDate: new Date(),
-        rdvEndHour: '09:00'
+        date: new Date(),
+        startHour: '09:00',
+        endHour: '10:30'
     },
-    {
-        rdvStartDate: new Date(),
-        rdvEndHour: '10:00'
-    }
 ];
