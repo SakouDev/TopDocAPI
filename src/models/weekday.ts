@@ -51,17 +51,15 @@ Weekday.init({
     },
     breakStartHour: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-            notNull: { msg: concatRequiredMessage('breakStartHour') },
             notEmpty: { msg: concatRequiredMessage('breakStartHour') }
         }
     },
     breakEndHour: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-            notNull: { msg: concatRequiredMessage('breakEndHour') },
             notEmpty: { msg: concatRequiredMessage('breakEndHour') }
         }
     },

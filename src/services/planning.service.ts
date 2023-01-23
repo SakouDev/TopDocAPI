@@ -36,15 +36,15 @@ export class PlanningService implements IService<PlanningDTO> {
 
             const CreneauxList = []
             const PausesList = []
-            const startPause = '12:00'
-            const endPause = '14:00'
+            const heureDebutPause = data.Weekday[i].breakStartHour
+            const heureFinPause = data.Weekday[i].breakEndHour
 
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
                 const newCreneau = { startHour: startHour, endHour: endHour, taken: false }
 
-                if (startPause <= startHour && endPause > startHour) {
+                if (heureDebutPause <= startHour && heureFinPause > startHour) {
                     PausesList.push(newCreneau)
                 }
                 else {
