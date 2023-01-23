@@ -3,6 +3,7 @@ import { IRepository } from "../repository/core/repository.interface";
 import { Planning } from "../models/planning"
 import { IService } from "./core/service.interface";
 import dayjs from "dayjs";
+import e from "cors";
 
 export class PlanningService implements IService<PlanningDTO> {
 
@@ -33,12 +34,12 @@ export class PlanningService implements IService<PlanningDTO> {
             const minutesTotales = (((endHours * 60) + endMinutes) - ((startHours * 60) + startMinutes))
             const creneauxDuration = data.Planning.rdvDuration
             const nbCreneaux = minutesTotales / creneauxDuration
-            
+
             const CreneauxList = []
             const PausesList = []
             const heureDebutPause = data.Weekday[i].breakStartHour
             const heureFinPause = data.Weekday[i].breakEndHour
-            
+
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
@@ -49,16 +50,14 @@ export class PlanningService implements IService<PlanningDTO> {
                     PausesList.push(newCreneau)
                 }
                 else {
-                    const result = data.Rdv.find(
-                        (rdvs: any) =>
-                            rdvs.startHour <= newCreneau.startHour && rdvs.endHour >= newCreneau.endHour
-                    );
-                    // console.log(result)
-                    if (result) {
-                        console.log("FOUND", result);
-                        newCreneau.taken = true;
+                    for (let i = 0; i < data.Rdv.length; i++) {
+                        if (data.Rdv[i].startHour <= newCreneau.startHour && data.Rdv[i].endHour >= newCreneau.endHour) {
+                            newCreneau.taken = true
+                        }
+                        else {
+                            console.log('Pas de rdv prévu:', newCreneau)
+                        }
                     }
-
                     CreneauxList.push(newCreneau)
                 }
             }
