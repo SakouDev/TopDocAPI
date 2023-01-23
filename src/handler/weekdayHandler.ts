@@ -1,6 +1,6 @@
 import { IService } from '../services/core/service.interface';
 import { Request, Response } from "express";
-import { WeekdayDTO } from '../../types/DTO/hours.dto';
+import { WeekdayDTO } from '../../types/DTO/weekday.dto';
 import bcrypt from 'bcrypt';
 
 export class WeekdayHandler {

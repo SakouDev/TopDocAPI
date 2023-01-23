@@ -9,6 +9,10 @@ export class Weekday extends Model {
 
     endHour!: string
 
+    breakStartHour!: string
+
+    breakEndHour!: string
+
 }
 
 const concatRequiredMessage = (data: string) => {
@@ -43,6 +47,22 @@ Weekday.init({
         validate: {
             notNull: { msg: concatRequiredMessage('endHour') },
             notEmpty: { msg: concatRequiredMessage('endHour') }
+        }
+    },
+    breakStartHour: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('breakStartHour') },
+            notEmpty: { msg: concatRequiredMessage('breakStartHour') }
+        }
+    },
+    breakEndHour: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notNull: { msg: concatRequiredMessage('breakEndHour') },
+            notEmpty: { msg: concatRequiredMessage('breakEndHour') }
         }
     },
 },

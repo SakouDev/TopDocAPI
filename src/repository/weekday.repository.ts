@@ -1,5 +1,5 @@
 import { Weekday } from "../models/weekday";
-import { WeekdayDTO } from "../../types/DTO/hours.dto";
+import { WeekdayDTO } from "../../types/DTO/weekday.dto";
 import { WeekdayMapper } from "../mapper/weekday.mapper";
 import { IRepository } from "./core/repository.interface";
 

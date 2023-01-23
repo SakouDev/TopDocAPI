@@ -6,4 +6,8 @@ export interface WeekdayDTO {
 
     endHour: string
 
+    breakStartHour: string
+
+    breakEndHour: string
+
 }

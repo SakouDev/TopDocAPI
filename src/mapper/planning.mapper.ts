@@ -7,7 +7,6 @@ export class PlanningMapper {
 
         if (planning === null) return null as any
         const DTO: PlanningDTO = {
-            name: planning.name,
             startDate: planning.startDate,
             rdvDuration: planning.rdvDuration,
             validityDuration: planning.validityDuration,

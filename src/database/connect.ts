@@ -149,7 +149,6 @@ const initDb = () => {
 
         plannings.map((planning, index: number) => {
             Planning.create({
-                name: planning.name,
                 startDate: planning.startDate,
                 validityDuration: planning.validityDuration,
                 rdvDuration: planning.rdvDuration,
@@ -168,6 +167,8 @@ const initDb = () => {
                 weekday: weekday.weekday,
                 startHour: weekday.startHour,
                 endHour: weekday.endHour,
+                breakStartHour: weekday.breakStartHour,
+                breakEndHour: weekday.breakEndHour,
                 planningId: weekday.planningId
             })
         })

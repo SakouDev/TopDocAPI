@@ -23,14 +23,6 @@ Planning.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: { msg: concatRequiredMessage('name') },
-            notEmpty: { msg: concatRequiredMessage('name') }
-        }
-    },
     startDate: {
         type: DataTypes.DATE,
         allowNull: false,

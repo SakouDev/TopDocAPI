@@ -23,16 +23,16 @@ Holiday.init({
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Nom') },
-            notEmpty: { msg: concatRequiredMessage('Nom') }
+            notNull: { msg: concatRequiredMessage('startDate') },
+            notEmpty: { msg: concatRequiredMessage('startDate') }
         }
     },
     endDate: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
-            notNull: { msg: concatRequiredMessage('Nom') },
-            notEmpty: { msg: concatRequiredMessage('Nom') }
+            notNull: { msg: concatRequiredMessage('endDate') },
+            notEmpty: { msg: concatRequiredMessage('endDate') }
         }
     },
 },

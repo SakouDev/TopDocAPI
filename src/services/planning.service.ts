@@ -35,15 +35,24 @@ export class PlanningService implements IService<PlanningDTO> {
             const nbCreneaux = minutesTotales / creneauxDuration
 
             const CreneauxList = []
+            const PausesList = []
+            const startPause = '12:00'
+            const endPause = '14:00'
 
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
-                const newCreneau = { startHour: startHour, endHour: endHour }
+                const newCreneau = { startHour: startHour, endHour: endHour, taken: false }
 
-                CreneauxList.push(newCreneau)
+                if (startPause <= startHour && endPause > startHour) {
+                    PausesList.push(newCreneau)
+                }
+                else {
+                    CreneauxList.push(newCreneau)
+                }
             }
-            const selectedDate = { jour: data.Weekday[i].weekday, creneaux: CreneauxList }
+
+            const selectedDate = { jour: data.Weekday[i].weekday, creneaux: CreneauxList, pauses: PausesList }
             console.log(selectedDate)
         }
         return this.planningRepository.findById(id)

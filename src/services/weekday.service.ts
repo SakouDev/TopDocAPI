@@ -1,4 +1,4 @@
-import { WeekdayDTO } from "../../types/DTO/hours.dto";
+import { WeekdayDTO } from "../../types/DTO/weekday.dto";
 import { IRepository } from "../repository/core/repository.interface";
 import { Weekday } from "../models/weekday"
 import { IService } from "./core/service.interface";
