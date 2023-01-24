@@ -3,7 +3,6 @@ import { IRepository } from "../repository/core/repository.interface";
 import { Planning } from "../models/planning"
 import { IService } from "./core/service.interface";
 import dayjs from "dayjs";
-import e from "cors";
 
 export class PlanningService implements IService<PlanningDTO> {
 
@@ -39,11 +38,11 @@ export class PlanningService implements IService<PlanningDTO> {
             const PausesList = []
             const heureDebutPause = data.Weekday[i].breakStartHour
             const heureFinPause = data.Weekday[i].breakEndHour
+            const date = data.Weekday[i].date
 
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
-                const date = data.Weekday[i].date
                 const newCreneau = { date: date, startHour: startHour, endHour: endHour, taken: false }
 
                 if (heureDebutPause <= startHour && heureFinPause > startHour) {
@@ -51,19 +50,17 @@ export class PlanningService implements IService<PlanningDTO> {
                 }
                 else {
                     for (let i = 0; i < data.Rdv.length; i++) {
-                        if (data.Rdv[i].startHour <= newCreneau.startHour && data.Rdv[i].endHour >= newCreneau.endHour) {
+                        if (data.Rdv[i].startHour <= newCreneau.startHour && 
+                            data.Rdv[i].endHour >= newCreneau.endHour &&
+                            data.Rdv[i].date.toDateString() == newCreneau.date.toDateString() ) {
                             newCreneau.taken = true
-                        }
-                        else {
-                            console.log('Pas de rdv prévu:', newCreneau)
+                            console.log('Rdv prévu:', newCreneau)
                         }
                     }
                     CreneauxList.push(newCreneau)
                 }
             }
-
-
-            const selectedDate = { jour: data.Weekday[i].weekday, creneaux: CreneauxList, pauses: PausesList }
+            const selectedDate = { jour: date, creneaux: CreneauxList, pauses: PausesList }
             console.log(selectedDate)
         }
         return this.planningRepository.findById(id)

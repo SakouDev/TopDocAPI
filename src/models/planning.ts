@@ -3,8 +3,6 @@ import sequelize from '../database/sequelize'
 
 export class Planning extends Model {
 
-    name!: string
-
     startDate!: Date
 
     rdvDuration!: number
