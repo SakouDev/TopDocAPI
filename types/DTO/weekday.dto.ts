@@ -1,6 +1,6 @@
 export interface WeekdayDTO {
 
-    date: string
+    date: Date
 
     startHour: string
 
