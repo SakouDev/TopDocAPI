@@ -16,9 +16,9 @@ export class PlanningService implements IService<PlanningDTO> {
         return this.planningRepository.findAll()
     }
 
-    async findById(id: number): Promise<PlanningDTO | null> {
+    async findById(id: number): Promise<any | null> {
         const data: any = await this.planningRepository.findById(id)
-
+        let planning: any = {}
         for (let i = 0; i < data.Weekday.length; i++) {
             const startUnformattedData = data.Weekday[i].startHour.split(':')
             const startHours = parseInt(startUnformattedData[0])
@@ -43,7 +43,7 @@ export class PlanningService implements IService<PlanningDTO> {
             for (let i = 0; i < nbCreneaux; i++) {
                 const startHour = start.add(i * creneauxDuration, 'minute').format('HH:mm')
                 const endHour = start.add((i + 1) * creneauxDuration, 'minute').format('HH:mm')
-                const newCreneau = { date: date, startHour: startHour, endHour: endHour, taken: false }
+                const newCreneau = { startHour: startHour, endHour: endHour, taken: false }
 
                 if (heureDebutPause <= startHour && heureFinPause > startHour) {
                     PausesList.push(newCreneau)
@@ -52,7 +52,7 @@ export class PlanningService implements IService<PlanningDTO> {
                     for (let i = 0; i < data.Rdv.length; i++) {
                         if (data.Rdv[i].startHour <= newCreneau.startHour && 
                             data.Rdv[i].endHour >= newCreneau.endHour &&
-                            data.Rdv[i].date.toDateString() == newCreneau.date.toDateString() ) {
+                            data.Rdv[i].date.toDateString() == date.toDateString() ) {
                             newCreneau.taken = true
                             console.log('Rdv prévu:', newCreneau)
                         }
@@ -60,10 +60,13 @@ export class PlanningService implements IService<PlanningDTO> {
                     CreneauxList.push(newCreneau)
                 }
             }
-            const selectedDate = { jour: date, creneaux: CreneauxList, pauses: PausesList }
-            console.log(selectedDate)
+
+            const selectedDate = { creneaux: CreneauxList, pauses: PausesList }
+            // planning.push({[dayjs(date).format('DD-MM')]: selectedDate})
+            planning = {...planning,[dayjs(date).format('DD-MM')]: selectedDate}
         }
-        return this.planningRepository.findById(id)
+        console.log("SLT",planning["24-01"])
+        return planning
     }
 
     async create(planning: Planning): Promise<PlanningDTO> {
