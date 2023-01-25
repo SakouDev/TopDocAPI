@@ -16,8 +16,9 @@ export class PlanningService implements IService<PlanningDTO> {
         return this.planningRepository.findAll()
     }
 
-    async findById(id: number): Promise<PlanningDTO | null> {
+    async findById(id: number): Promise<any | null> {
         const data: any = await this.planningRepository.findById(id)
+        const planning = []
 
         for (let i = 0; i < data.Weekday.length; i++) {
             const startUnformattedData = data.Weekday[i].startHour.split(':')
@@ -50,9 +51,9 @@ export class PlanningService implements IService<PlanningDTO> {
                 }
                 else {
                     for (let i = 0; i < data.Rdv.length; i++) {
-                        if (data.Rdv[i].startHour <= newCreneau.startHour && 
+                        if (data.Rdv[i].startHour <= newCreneau.startHour &&
                             data.Rdv[i].endHour >= newCreneau.endHour &&
-                            data.Rdv[i].date.toDateString() == newCreneau.date.toDateString() ) {
+                            data.Rdv[i].date.toDateString() == newCreneau.date.toDateString()) {
                             newCreneau.taken = true
                             console.log('Rdv prévu:', newCreneau)
                         }
@@ -61,9 +62,10 @@ export class PlanningService implements IService<PlanningDTO> {
                 }
             }
             const selectedDate = { jour: date, creneaux: CreneauxList, pauses: PausesList }
-            console.log(selectedDate)
+            planning.push(selectedDate)
         }
-        return this.planningRepository.findById(id)
+        return planning
+        // return this.planningRepository.findById(id)
     }
 
     async create(planning: Planning): Promise<PlanningDTO> {
