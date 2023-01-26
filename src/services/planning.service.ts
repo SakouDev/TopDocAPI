@@ -50,7 +50,7 @@ export class PlanningService implements IService<PlanningDTO> {
                 }
                 else {
                     for (let i = 0; i < data.Rdv.length; i++) {
-                        if (data.Rdv[i].startHour <= newCreneau.startHour && 
+                        if (data.Rdv[i].startHour <= newCreneau.startHour &&
                             data.Rdv[i].endHour >= newCreneau.endHour &&
                             data.Rdv[i].date.toDateString() == date.toDateString() ) {
                             newCreneau.taken = true
