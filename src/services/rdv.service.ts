@@ -19,7 +19,7 @@ export class RdvService implements IService<RdvDTO> {
         return this.rdvRepository.findById(id)
     }
 
-    async create(rdv: Rdv): Promise<RdvDTO> {
+    async create(rdv: Rdv) {
         return this.rdvRepository.create(rdv)
     }
 

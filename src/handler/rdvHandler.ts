@@ -36,6 +36,7 @@ export class RdvHandler {
     createRdv = async (req: Request, res: Response) => {
         try {
             const result = await this.rdvService.create(req.body)
+            console.log("result",result)
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json(error);

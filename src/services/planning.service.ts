@@ -54,7 +54,6 @@ export class PlanningService implements IService<PlanningDTO> {
                             data.Rdv[i].endHour >= newCreneau.endHour &&
                             data.Rdv[i].date.toDateString() == date.toDateString() ) {
                             newCreneau.taken = true
-                            console.log('Rdv prévu:', newCreneau)
                         }
                     }
                     CreneauxList.push(newCreneau)
@@ -62,10 +61,8 @@ export class PlanningService implements IService<PlanningDTO> {
             }
 
             const selectedDate = { creneaux: CreneauxList, pauses: PausesList }
-            // planning.push({[dayjs(date).format('DD-MM')]: selectedDate})
             planning = {...planning,[dayjs(date).format('DD-MM')]: selectedDate}
         }
-        console.log("SLT",planning["24-01"])
         return planning
     }
 

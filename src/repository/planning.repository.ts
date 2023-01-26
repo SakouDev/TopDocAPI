@@ -17,7 +17,11 @@ export class PlanningRepository implements IRepository<PlanningDTO> {
             }
         })
 
-        const RdvFound = await Rdv.findAll()
+        const RdvFound = await Rdv.findAll({
+            where: {
+                activityId: id
+            }
+        })
 
         const PlanningBrut = { Planning: PlanningFound, Weekday: WeekdayFound, Rdv: RdvFound }
         return PlanningBrut as any

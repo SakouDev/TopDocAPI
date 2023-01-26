@@ -1,5 +1,6 @@
 export const user = [
     {
+        id: 1,
         firstname: "Luc",
         lastname: "Vigneron",
         birthdate: "27/04/1999",
@@ -11,6 +12,7 @@ export const user = [
         token: "OUIVASIOUIOUI!OUIOUI!AVECTONBEAUTAXI!!!!!!!!!!!!!!!!"
     },
     {
+        id: 2,
         firstname: "Remy",
         lastname: "Cottrez",
         birthdate: "27/04/1999",

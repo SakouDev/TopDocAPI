@@ -1,3 +1,5 @@
+import { Weekday } from './../models/weekday';
+import { Planning } from './../models/planning';
 import { Rdv } from "../models/rdv";
 import { RdvDTO } from "../../types/DTO/rdv.dto";
 import { RdvMapper } from "../mapper/rdv.mapper";
@@ -16,10 +18,29 @@ export class RdvRepository implements IRepository<RdvDTO> {
             })
         })
     }
-    async create(body: Partial<Rdv>): Promise<RdvDTO> {
-        return Rdv.create(body).then((data: Rdv) => {
-            return RdvMapper.MapToDTO(data)
-        })
+    async create(body: Partial<Rdv>): Promise<any> {
+
+        Planning.findOne({ where: { activityId: body.activityId }, include: [Weekday] })
+            .then((data: any) => {
+                return data.Weekdays.forEach((element: any) => {
+                    console.log("element : ", element.date.getDate());
+                    const date = new Date(body.date!);
+                    console.log("date : ", date.getDate());
+
+                    try {
+                        if (element.date.getDate() != date.getDate()) {
+                            console.log("COUCOU")
+                            return Rdv.create(body).then((data: Rdv) => {
+                                return RdvMapper.MapToDTO(data);
+                            });
+                        } else {
+                            console.log("MENFOU")
+                        }
+                    } catch (error) {
+                        return error;
+                    }
+                });
+            });
     }
     async delete(id: number): Promise<boolean | number> {
         return Rdv.destroy({ where: { id: id } }).then((data: boolean | number) => {

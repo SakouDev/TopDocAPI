@@ -113,11 +113,23 @@ const initDb = () => {
             })
         })
 
+        plannings.map((planning, index: number) => {
+            Planning.create({
+                startDate: planning.startDate,
+                validityDuration: planning.validityDuration,
+                rdvDuration: planning.rdvDuration,
+                activityId: planning.activityId
+            })
+        })
+
+
         rdv.map((rdv, index: number) => {
             Rdv.create({
                 date: rdv.date,
                 startHour: rdv.startHour,
-                endHour: rdv.endHour
+                endHour: rdv.endHour,
+                userId: rdv.userId,
+                activityId: rdv.activityId
             })
         })
 
@@ -129,15 +141,7 @@ const initDb = () => {
             })
         })
 
-        plannings.map((planning, index: number) => {
-            Planning.create({
-                startDate: planning.startDate,
-                validityDuration: planning.validityDuration,
-                rdvDuration: planning.rdvDuration,
-                activityId: planning.activityId
-            })
-        })
-
+        
         banneds.map((banned, index: number) => {
             Banned.create({
                 reason: banned.reason
