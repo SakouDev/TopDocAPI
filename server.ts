@@ -7,7 +7,7 @@ import path from 'path'
 import { apiController } from './src/controllers/core/apiController'
 import { errorHandler } from './src/middleware/globalError'
 
-const app = express()
+export const app = express()
 app.use(cors())
 
 const sequelize = require('./src/database/connect')
@@ -21,7 +21,7 @@ const logsSave = fs.createWriteStream(path.join(__dirname, 'access.log'), { flag
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :date[web]', { stream: logsSave }))
 
 export const port = process.env.PORT || 5000
-app.listen(port, () => {
+export const server = app.listen(port, () => {
     console.log(`Listening to port ${port}...`)
 })
 
